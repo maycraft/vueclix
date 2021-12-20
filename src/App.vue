@@ -2,4 +2,7 @@
     <h1>Test</h1>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.test {
+}
+</style>
