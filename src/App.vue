@@ -2,7 +2,4 @@
     <h1>Test</h1>
 </template>
 
-<style lang="scss">
-.test {
-}
-</style>
+<style lang="scss"></style>
