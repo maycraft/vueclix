@@ -21,7 +21,7 @@ body {
 }
 
 body {
-    background: url('./assets/img/cinemas.png') top center repeat-y;
+    background: url('./assets/img/background.png') top center repeat-y;
     background-attachment: fixed;
 }
 
