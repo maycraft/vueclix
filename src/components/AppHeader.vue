@@ -11,7 +11,7 @@
         <nav class="header__menu">
             <ul class="menu">
                 <li class="menu__item">
-                    <router-link to="/new" class="menu__link" active-class="active">
+                    <router-link to="/" class="menu__link" active-class="active">
                         Новинки
                     </router-link>
                 </li>
@@ -95,7 +95,7 @@ export default {
 .header {
     @extend .row;
     --bs-gutter-y: 0.75rem;
-    padding: 40px 0;
+    padding: 20px 0;
 
     &__logo {
         font-family: 'Limelight', cursive;
