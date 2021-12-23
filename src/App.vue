@@ -11,6 +11,9 @@ export default {
     components: {
         AppHeader,
     },
+    created() {
+        this.$store.dispatch('getGenres');
+    },
 };
 </script>
 <style lang="scss">
