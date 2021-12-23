@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
     // API_URL_MOVIE,
     // API_CONSTANT,
-    // API_URL_GENRE,
+    API_URL_GENRE,
     API_URL_NOW_PLAYING,
     // API_URL_SEARCH,
 } from '../constants';
@@ -24,8 +24,12 @@ async function getData(url) {
     }
 }
 
-export const getNewMovies = page => {
+export const getNewMovies = (page = 1) => {
     return getData(API_URL_NOW_PLAYING + page);
+};
+export const getGenres = async () => {
+    const res = await getData(API_URL_GENRE);
+    return res.genres;
 };
 // getSearchMovies(query) {
 //     const value = query ? query : '';
@@ -33,9 +37,6 @@ export const getNewMovies = page => {
 // },
 
 // getUpcomingMovies(page) {},
-// getGenres() {
-//     return this.getData(API_URL_GENRE);
-// }
 // getMovieById(id) {
 //     return this.getData(
 //         `${API_URL_MOVIE}/${id}${API_CONSTANT}&append_to_response=videos,credits`,
