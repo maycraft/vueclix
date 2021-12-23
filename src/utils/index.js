@@ -1,4 +1,16 @@
+import store from '@/store';
+
 export const getReleaseDate = str => (str ? str.split('-')[0] : '');
+
+export const getMovieGenres = genreIds => {
+    const res = [];
+    store.getters.genres.forEach(genre => {
+        for (let i = 0; i < genreIds.length; i++) {
+            if (genre.id === genreIds[i]) res.push(genre.name);
+        }
+    });
+    return res.join(', ');
+};
 
 export const showGenres = genres => genres.map(genre => genre.name).join(', ');
 
