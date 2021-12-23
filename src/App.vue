@@ -1,6 +1,7 @@
 <template>
     <div className="container">
-        <app-header></app-header>
+        <app-header />
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -21,7 +22,8 @@ body {
 }
 
 body {
-    background: url('./assets/img/background.png') top center repeat-y;
+    background: url('./assets/img/background.png') top center no-repeat;
+    background-size: cover;
     background-attachment: fixed;
 }
 
