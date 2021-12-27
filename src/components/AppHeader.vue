@@ -3,8 +3,7 @@
         <div class="header__logo">
             <router-link to="/" custom v-slot="{ href, navigate }">
                 <a :href="href" @click="navigate">
-                    <img src="@/assets/img/logo.png" alt="VueClix" />
-                    <span>ueClix</span>
+                    <img src="@/assets/img/new-logo.png" alt="VueClix" />
                 </a>
             </router-link>
         </div>
@@ -15,11 +14,11 @@
                         Новинки
                     </router-link>
                 </li>
-                <li class="menu__item">
+                <!-- <li class="menu__item">
                     <router-link to="/upcoming" class="menu__link" active-class="active">
                         Ожидаемые
                     </router-link>
-                </li>
+                </li> -->
                 <li class="menu__item">
                     <router-link to="/popular" class="menu__link" active-class="active">
                         Популярные
@@ -108,7 +107,7 @@ export default {
         }
 
         img {
-            max-width: 2rem;
+            max-width: 140px;
         }
     }
 
