@@ -6,6 +6,9 @@ module.exports = {
             },
         },
     },
+    devServer: {
+        clientLogLevel: 'info',
+    },
 };
 
 // @import "@/assets/scss/_variables.scss";
