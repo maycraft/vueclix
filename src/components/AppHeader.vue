@@ -10,7 +10,11 @@
         <nav class="header__menu">
             <ul class="menu">
                 <li class="menu__item">
-                    <router-link to="/" class="menu__link" active-class="active">
+                    <router-link
+                        :to="{ name: 'now-playing', query: { page: 1 } }"
+                        class="menu__link"
+                        active-class="active"
+                    >
                         Новинки
                     </router-link>
                 </li>

@@ -4,7 +4,11 @@ import Movies from '@/views/Movies.vue';
 const routes = [
     {
         path: '/',
-        name: 'Movies',
+        redirect: { name: 'now-playing', query: { page: 1 } },
+    },
+    {
+        path: '/now_playing',
+        name: 'now-playing',
         component: Movies,
     },
     {
