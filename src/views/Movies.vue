@@ -9,20 +9,31 @@
             :release="movie.release_date"
             :genres="movie.genre_ids"
         ></movie-card>
+        <app-pagination
+            :current="currentPage"
+            :total="totalPages"
+            pageCount="3"
+            @change-page="changeNewMoviesPage"
+        ></app-pagination>
     </div>
 </template>
 
 <script>
 import MovieCard from '@/components/MovieCard.vue';
-import { mapGetters } from 'vuex';
+import AppPagination from '@/components/AppPagination';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
     name: 'Movies',
     components: {
         MovieCard,
+        AppPagination,
     },
     created() {
         this.$store.dispatch('getNewMovies', 1);
+    },
+    methods: {
+        ...mapActions(['changeNewMoviesPage']),
     },
     computed: {
         ...mapGetters(['movies', 'currentPage', 'totalPages']),
