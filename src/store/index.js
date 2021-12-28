@@ -38,6 +38,10 @@ export default createStore({
             commit('setTotalPages', total_pages);
             commit('setMovies', results);
         },
+        async changeNewMoviesPage({ commit, dispatch }, page) {
+            commit('setPage', page);
+            dispatch('getNewMovies', page);
+        },
     },
     modules: {},
 });
