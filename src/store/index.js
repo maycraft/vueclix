@@ -7,12 +7,18 @@ export default createStore({
         page: 1,
         total: 1,
         movies: [],
+        loading: false,
+        movie: null,
+        error: null,
     },
     getters: {
         genres: state => state.genres,
         movies: state => state.movies,
         currentPage: state => state.page,
         totalPages: state => state.total,
+        movie: state => state.movie,
+        loading: state => state.loading,
+        error: state => state.error,
     },
     mutations: {
         setGenres(state, genres) {
