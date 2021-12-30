@@ -3,7 +3,7 @@
         <ul>
             <li
                 class="pagination__btn"
-                :class="{ 'pagination__btn-disabled': current === 1 }"
+                :class="{ 'pagination__btn-disabled': current == 1 }"
                 @click="onPrevPage"
             >
                 <svg
@@ -24,7 +24,7 @@
                 :key="page"
                 class="pagination__item"
                 @click="setPage(page)"
-                :class="{ 'pagination__item-active': page === current }"
+                :class="{ 'pagination__item-active': page == current }"
                 v-for="page in showPages"
             >
                 {{ page }}
@@ -35,7 +35,7 @@
             </template>
             <li
                 class="pagination__btn"
-                :class="{ 'pagination__btn-disabled': current === total }"
+                :class="{ 'pagination__btn-disabled': current == total }"
                 @click="onNextPage"
             >
                 <svg
@@ -56,8 +56,7 @@ export default {
     name: 'AppPagination',
     props: {
         current: {
-            type: Number,
-            required: true,
+            default: 1,
         },
         total: {
             type: Number,
