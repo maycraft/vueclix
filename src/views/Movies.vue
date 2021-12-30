@@ -8,6 +8,7 @@
             :title="movie.title"
             :release="movie.release_date"
             :genres="movie.genre_ids"
+            @click="$router.push(`/movie/${movie.id}`)"
         ></movie-card>
         <app-pagination
             :current="currentPage"
