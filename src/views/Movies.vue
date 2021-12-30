@@ -31,7 +31,7 @@ export default {
         AppPagination,
     },
     created() {
-        this.$store.dispatch('getNewMovies', 1);
+        this.$store.dispatch('getNewMovies', this.$route.query.page);
     },
     methods: {
         ...mapActions(['changeNewMoviesPage']),
