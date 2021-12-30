@@ -33,6 +33,15 @@ export default createStore({
         setTotalPages(state, total) {
             state.total = total;
         },
+        setMovie(state, movieObj) {
+            state.movie = movieObj;
+        },
+        setLoading(state, isLoaded) {
+            state.loading = isLoaded;
+        },
+        setError(state, error) {
+            state.error = error;
+        },
     },
     actions: {
         async getGenres({ commit }) {
