@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {
-    // API_URL_MOVIE,
-    // API_CONSTANT,
+    API_URL_MOVIE,
+    API_CONSTANT,
     API_URL_GENRE,
     API_URL_NOW_PLAYING,
     // API_URL_SEARCH,
@@ -31,14 +31,12 @@ export const getGenres = async () => {
     const res = await getData(API_URL_GENRE);
     return res.genres;
 };
+export const getMovieById = async id => {
+    return await getData(`${API_URL_MOVIE}/${id}${API_CONSTANT}&append_to_response=videos,credits`);
+};
 // getSearchMovies(query) {
 //     const value = query ? query : '';
 //     return this.getData(API_URL_SEARCH + value);
 // },
 
 // getUpcomingMovies(page) {},
-// getMovieById(id) {
-//     return this.getData(
-//         `${API_URL_MOVIE}/${id}${API_CONSTANT}&append_to_response=videos,credits`,
-//     );
-// }

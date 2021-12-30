@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import { getGenres, getNewMovies } from '@/api';
+import { getMovieById } from '../api';
 export default createStore({
     state: {
         genres: [],
@@ -41,6 +42,45 @@ export default createStore({
         async changeNewMoviesPage({ commit, dispatch }, page) {
             commit('setPage', page);
             dispatch('getNewMovies', page);
+        },
+        async fetchMovieByID({ commit }, id) {
+            try {
+                const req = await getMovieById(id);
+
+                const {
+                    title,
+                    release_date,
+                    tagline,
+                    poster_path,
+                    genres,
+                    homepage,
+                    backdrop_path,
+                    production_companies,
+                    production_countries,
+                    overview,
+                    videos,
+                    credits,
+                } = req;
+                const movie = {
+                    id,
+                    title,
+                    release_date,
+                    tagline,
+                    poster_path,
+                    genres,
+                    homepage,
+                    backdrop_path,
+                    production_countries,
+                    production_companies,
+                    overview,
+                    videos: videos.results,
+                    cast: credits.cast.slice(0, 12),
+                    crew: credits.crew,
+                };
+                commit('setMovie', movie);
+            } catch (err) {
+                commit('setError', err.message);
+            }
         },
     },
     modules: {},
