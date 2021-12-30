@@ -50,27 +50,4 @@ body {
     @include make-container();
     @include make-max-width-container();
 }
-
-.error {
-    text-align: center;
-    &__image {
-        width: 10rem;
-        height: 10rem;
-    }
-
-    &__text {
-        margin: 0 auto;
-        max-width: 450px;
-        font-weight: 300;
-        line-height: 2;
-    }
-
-    &__site {
-        color: #fff59d;
-    }
-
-    &__message {
-        color: #cddc39;
-    }
-}
 </style>
