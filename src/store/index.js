@@ -59,9 +59,11 @@ export default createStore({
             dispatch('getNewMovies', page);
         },
         async fetchMovieByID({ commit }, id) {
+            commit('setLoading', true);
+            commit('setMovie', null);
+            commit('setError', null);
             try {
                 const req = await getMovieById(id);
-
                 const {
                     title,
                     release_date,
@@ -92,6 +94,7 @@ export default createStore({
                     cast: credits.cast.slice(0, 12),
                     crew: credits.crew,
                 };
+                commit('setLoading', false);
                 commit('setMovie', movie);
             } catch (err) {
                 commit('setError', err.message);
