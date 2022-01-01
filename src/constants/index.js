@@ -41,4 +41,6 @@ export const POSTER_URL_SM = 'https://image.tmdb.org/t/p/w300';
 
 export const POSTER_URL_MD = 'https://image.tmdb.org/t/p/w500';
 
+export const POSTER_URL_ORIGINAL = 'https://image.tmdb.org/t/p/original/';
+
 export const YOUTUBE_URL = 'https://www.youtube.com/embed/';
