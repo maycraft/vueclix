@@ -13,7 +13,7 @@
         <app-pagination
             :current="currentPage"
             :total="totalPages"
-            pageCount="3"
+            :pageCount="3"
             @change-page="changeNewMoviesPage"
         ></app-pagination>
     </div>

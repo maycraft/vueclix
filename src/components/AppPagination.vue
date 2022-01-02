@@ -63,7 +63,7 @@ export default {
             required: true,
         },
         pageCount: {
-            type: [Number, String],
+            type: [Number],
             default: 5,
         },
     },
