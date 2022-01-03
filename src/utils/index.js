@@ -22,3 +22,6 @@ export const mapCrewItem = (items, department) => {
         .map(item => item.name)
         .join(', ');
 };
+
+export const isNumeric = value =>
+    !isNaN(value) && parseInt(value[0]) !== 0 ? parseInt(value) : null;
