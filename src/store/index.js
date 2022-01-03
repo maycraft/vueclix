@@ -97,6 +97,7 @@ export default createStore({
                 commit('setLoading', false);
                 commit('setMovie', movie);
             } catch (err) {
+                commit('setLoading', false);
                 commit('setError', err.message);
             }
         },
