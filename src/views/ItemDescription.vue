@@ -5,10 +5,9 @@
         color="#0277bd"
         loader="dots"
         background-color="#000"
-        height="5rem"
-        width="5rem"
+        :width="100"
     ></loading>
-    <app-error v-else-if="error" :errMsg="error"></app-error>
+    <not-found v-else-if="error" :errMsg="error"></not-found>
     <main class="movie" v-else>
         <h1 class="movie__title">{{ `${item.title} (${releaseYear})` }}</h1>
         <h5 class="movie__tagline">{{ item.tagline }}</h5>
@@ -72,6 +71,7 @@
             <p>{{ item.overview }}</p>
         </div>
         <div>
+            <h2 class="bold gy-3">Трейлер:</h2>
             <template v-if="item.videos.length">
                 <div class="trailer" :key="video.key" v-for="video in item.videos">
                     <h3 class="trailer__title">{{ video.name }}</h3>
@@ -109,12 +109,11 @@
                 ></actor-card>
             </div>
         </div>
-        <h2 class="bold gy-3">Трейлер:</h2>
     </main>
 </template>
 <script>
 import ActorCard from '@/components/ActorCard.vue';
-import AppError from '@/components/AppError.vue';
+import NotFound from '@/components/NotFound.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { POSTER_URL_SM } from '@/constants';
 import { mapCrewItem } from '@/utils';
@@ -128,8 +127,8 @@ export default {
     },
     components: {
         ActorCard,
-        AppError,
         Loading,
+        NotFound,
     },
     name: 'ItemDescription',
     computed: {
