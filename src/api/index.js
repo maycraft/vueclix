@@ -24,7 +24,7 @@ async function getData(url) {
     }
 }
 
-export const getNewMovies = (page = 1) => {
+export const getNewMovies = page => {
     return getData(API_URL_NOW_PLAYING + page);
 };
 export const getGenres = async () => {

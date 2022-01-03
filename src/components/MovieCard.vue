@@ -34,11 +34,6 @@ export default {
             required: true,
         },
     },
-    methods: {
-        handleClick() {
-            console.log('click');
-        },
-    },
     computed: {
         hasPoster() {
             return !!this.poster;
