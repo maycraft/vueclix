@@ -1,5 +1,6 @@
 <template>
-    <div class="cards">
+    <not-found v-if="wrongPage"></not-found>
+    <div v-else class="cards">
         <movie-card
             v-for="movie in movies"
             :key="movie.id"
@@ -22,6 +23,8 @@
 <script>
 import MovieCard from '@/components/MovieCard.vue';
 import AppPagination from '@/components/AppPagination';
+import NotFound from '@/components/NotFound.vue';
+import { isNumeric } from '@/utils';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
@@ -29,15 +32,26 @@ export default {
     components: {
         MovieCard,
         AppPagination,
+        NotFound,
     },
     created() {
-        this.$store.dispatch('getNewMovies', this.$route.query.page);
+        if (isNumeric(this.page)) {
+            this.$store.dispatch('getNewMovies', isNumeric(this.page));
+        }
+    },
+    data() {
+        return {
+            page: this.$route.query.page,
+        };
     },
     methods: {
         ...mapActions(['changeNewMoviesPage']),
     },
     computed: {
         ...mapGetters(['movies', 'currentPage', 'totalPages']),
+        wrongPage() {
+            return !(isNumeric(this.page) && this.currentPage <= this.totalPages);
+        },
     },
 };
 </script>
