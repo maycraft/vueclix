@@ -56,6 +56,7 @@ export default {
     name: 'AppPagination',
     props: {
         current: {
+            type: Number,
             default: 1,
         },
         total: {
@@ -63,12 +64,9 @@ export default {
             required: true,
         },
         pageCount: {
-            type: [Number],
+            type: Number,
             default: 5,
         },
-    },
-    data() {
-        return {};
     },
     methods: {
         setPage(page) {
@@ -154,7 +152,7 @@ export default {
 
         &-disabled {
             cursor: default;
-            opacity: 0.6;
+            opacity: 0.5;
         }
     }
 }
