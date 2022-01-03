@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <div class="header__logo">
-            <router-link to="/" custom v-slot="{ href, navigate }">
+            <router-link :to="{ name: 'home' }" custom v-slot="{ href, navigate }">
                 <a :href="href" @click="navigate">
                     <img src="@/assets/img/new-logo.png" alt="VueClix" />
                 </a>
