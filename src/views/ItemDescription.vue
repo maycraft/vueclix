@@ -117,13 +117,14 @@ import NotFound from '@/components/NotFound.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { POSTER_URL_SM } from '@/constants';
 import { mapCrewItem } from '@/utils';
+import { isNumeric } from '@/utils';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     created() {
-        this.fetchMovieByID(this.$route.params.id);
+        this.fetchMovieByID(isNumeric(this.id));
     },
     components: {
         ActorCard,
@@ -131,6 +132,11 @@ export default {
         NotFound,
     },
     name: 'ItemDescription',
+    data() {
+        return {
+            id: this.$route.params.id,
+        };
+    },
     computed: {
         ...mapGetters({ item: 'movie', loading: 'loading', error: 'error' }),
         imageURL() {
