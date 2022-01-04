@@ -1,7 +1,7 @@
 <template>
     <content-loader
         :height="410"
-        width="100%"
+        :width="250"
         :speed="2"
         primaryColor="#cccccc"
         secondaryColor="#ecebeb"
