@@ -116,7 +116,7 @@ export default {
         margin: 0 10px 5px 0;
         padding: 8px 10px;
         height: 34px;
-        width: 34px;
+        min-width: 34px;
         border-radius: 50%;
         color: #84878d;
         cursor: pointer;
