@@ -39,6 +39,11 @@ export default {
             this.$store.dispatch('getNewMovies', isNumeric(this.page));
         }
     },
+    updated() {
+        this.$nextTick(function () {
+            window.scrollTo(0, 0);
+        });
+    },
     data() {
         return {
             page: this.$route.query.page,
