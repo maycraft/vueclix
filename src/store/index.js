@@ -66,6 +66,7 @@ export default createStore({
                 const req = await getMovieById(id);
                 const {
                     title,
+                    original_title,
                     release_date,
                     tagline,
                     poster_path,
@@ -81,6 +82,7 @@ export default createStore({
                 const movie = {
                     id,
                     title,
+                    original_title,
                     release_date,
                     tagline,
                     poster_path,

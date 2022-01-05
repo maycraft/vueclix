@@ -10,6 +10,7 @@
     <not-found v-else-if="error" :errMsg="error"></not-found>
     <main class="movie" v-else>
         <h1 class="movie__title">{{ `${item.title} (${releaseYear})` }}</h1>
+        <h3 class="movie__original-title">{{ item.original_title }}</h3>
         <h5 class="movie__tagline">{{ item.tagline }}</h5>
         <div class="movie__poster">
             <img :src="imageURL" :alt="item.title" />
@@ -171,6 +172,12 @@ export default {
     // background-size: cover;
     // background-repeat: no-repeat;
     // background: url() top left contain no-repeat;
+
+    &__original-title {
+        color: #b2b2b2;
+        font-weight: 500;
+        text-align: center;
+    }
 
     &__tagline {
         text-align: center;
