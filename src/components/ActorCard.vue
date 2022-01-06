@@ -63,6 +63,8 @@ export default {
 </script>
 <style lang="scss">
 .actor {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 0.7rem;
     text-align: center;
 
@@ -80,6 +82,7 @@ export default {
     }
 
     &__name {
+        margin-top: auto;
         color: #424242;
     }
 
