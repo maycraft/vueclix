@@ -25,7 +25,7 @@
 <script>
 import MovieCard from '@/components/MovieCard.vue';
 import NotFound from '@/components/NotFound.vue';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
@@ -37,15 +37,17 @@ export default {
         NotFound,
         Loading,
     },
+    created() {
+        const query = this.$route.query.q;
+        this.getQueryMovies(query);
+    },
     updated() {
         this.$nextTick(function () {
             window.scrollTo(0, 0);
         });
     },
-    data() {
-        return {
-            page: this.$route.query.page,
-        };
+    methods: {
+        ...mapActions(['getQueryMovies']),
     },
     computed: {
         ...mapGetters(['movies', 'loading']),
