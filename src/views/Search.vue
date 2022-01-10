@@ -1,14 +1,8 @@
 <template>
-    <loading
-        v-if="loading"
-        :active="loading"
-        color="#0277bd"
-        loader="dots"
-        background-color="#000"
-        :width="100"
-    ></loading>
+    <v-loader v-if="loading"></v-loader>
+    <app-error v-if="error" :errMsg="error"></app-error>
     <not-found v-if="notFound" errMsg="По запросу ничего не найдено!"></not-found>
-    <div v-else class="cards">
+    <div v-if="movies?.length" class="cards">
         <movie-card
             v-for="movie in movies"
             :key="movie.id"
@@ -24,18 +18,18 @@
 
 <script>
 import MovieCard from '@/components/MovieCard.vue';
+import AppError from '@/components/AppError.vue';
 import NotFound from '@/components/NotFound.vue';
+import VLoader from '@/components/V-Loader.vue';
 import { mapActions, mapGetters } from 'vuex';
-
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     name: 'Movies',
     components: {
         MovieCard,
         NotFound,
-        Loading,
+        AppError,
+        VLoader,
     },
     created() {
         const query = this.$route.query.q;
@@ -50,7 +44,7 @@ export default {
         ...mapActions(['getQueryMovies']),
     },
     computed: {
-        ...mapGetters(['movies', 'loading']),
+        ...mapGetters(['movies', 'loading', 'error']),
         notFound() {
             return this.movies?.length === 0;
         },

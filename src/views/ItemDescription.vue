@@ -1,14 +1,7 @@
 <template>
-    <loading
-        v-if="loading"
-        :active="loading"
-        color="#0277bd"
-        loader="dots"
-        background-color="#000"
-        :width="100"
-    ></loading>
-    <not-found v-else-if="error" :errMsg="error"></not-found>
-    <main class="movie" v-else>
+    <v-loader v-if="loading"></v-loader>
+    <not-found v-if="error" :errMsg="error"></not-found>
+    <main class="movie" v-if="item">
         <h1 class="movie__title">{{ `${item.title} (${releaseYear})` }}</h1>
         <h3 class="movie__original-title">{{ item.original_title }}</h3>
         <h5 class="movie__tagline">{{ item.tagline }}</h5>
@@ -115,13 +108,11 @@
 <script>
 import ActorCard from '@/components/ActorCard.vue';
 import NotFound from '@/components/NotFound.vue';
+import VLoader from '@/components/V-Loader.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { POSTER_URL_SM } from '@/constants';
 import { mapCrewItem } from '@/utils';
 import { isNumeric } from '@/utils';
-
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     created() {
@@ -129,7 +120,7 @@ export default {
     },
     components: {
         ActorCard,
-        Loading,
+        VLoader,
         NotFound,
     },
     name: 'ItemDescription',
