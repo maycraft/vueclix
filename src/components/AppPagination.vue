@@ -70,18 +70,18 @@ export default {
     },
     methods: {
         setPage(page) {
-            this.$router.push({ path: '/now_playing', query: { page } });
+            this.$router.push({ path: this.$route.path, query: { page } });
             this.$emit('changePage', page);
         },
         onPrevPage() {
             if (this.current > 1) {
-                this.$router.push({ path: '/now_playing', query: { page: this.current - 1 } });
+                this.$router.push({ path: this.$route.path, query: { page: this.current - 1 } });
                 this.$emit('changePage', this.current - 1);
             }
         },
         onNextPage() {
             if (this.current < this.total) {
-                this.$router.push({ path: '/now_playing', query: { page: this.current + 1 } });
+                this.$router.push({ path: this.$route.path, query: { page: this.current + 1 } });
                 this.$emit('changePage', this.current + 1);
             }
         },
