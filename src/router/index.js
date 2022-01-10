@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Movies from '@/views/Movies.vue';
+import Search from '@/views/Search.vue';
 import ItemDescription from '@/views/ItemDescription.vue';
 import NotFound from '@/views/NotFound.vue';
 
@@ -13,6 +14,11 @@ const routes = [
         path: '/now_playing',
         name: 'now-playing',
         component: Movies,
+    },
+    {
+        path: '/search',
+        name: 'search',
+        component: Search,
     },
     // {
     //     path: '/popular',
