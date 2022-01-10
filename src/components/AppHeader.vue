@@ -33,9 +33,10 @@
                 <input
                     type="text"
                     class="search__line"
-                    :class="{ 'show-up': isShow }"
+                    :class="{ 'show-up': showSearch }"
                     placeholder="Поиск фильма..."
-                    v-model="search"
+                    :value="searchQuery"
+                    @input="onInput"
                 />
                 <button class="btn__search" @click="toggleShow">
                     <transition name="rotate" mode="out-in">
@@ -45,7 +46,7 @@
                             viewBox="0 0 50 50"
                             width="50px"
                             height="50px"
-                            v-if="isShow"
+                            v-if="showSearch"
                         >
                             <path
                                 fill="currentColor"
@@ -79,17 +80,41 @@
     </header>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
+import _ from 'lodash';
 export default {
     name: 'AppHeader',
     data() {
         return {
-            isShow: false,
-            search: '',
+            showSearch: false,
         };
     },
     methods: {
+        ...mapActions(['getQueryMovies', 'setSearchQuery']),
         toggleShow() {
-            this.isShow = !this.isShow;
+            if (this.showSearch) {
+                this.setSearchQuery('');
+            }
+            this.showSearch = !this.showSearch;
+        },
+        onInput: _.debounce(function (event) {
+            const value = event.target.value;
+            this.setSearchQuery(value);
+            if (value) {
+                this.$router.push(`/search?q=${value}`);
+                this.getQueryMovies(value);
+            }
+        }, 1000),
+    },
+    computed: {
+        ...mapGetters(['searchQuery']),
+    },
+    watch: {
+        $route(to, from) {
+            if (from.name === 'search' && to.name !== 'search') {
+                this.showSearch = false;
+                this.setSearchQuery('');
+            }
         },
     },
 };
