@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getGenres, getNewMovies } from '@/api';
+import { getGenres, getNewMovies, getSearchMovies } from '@/api';
 import { getMovieById } from '../api';
 export default createStore({
     state: {
@@ -10,6 +10,7 @@ export default createStore({
         loading: false,
         movie: null,
         error: null,
+        searchQuery: '',
     },
     getters: {
         genres: state => state.genres,
@@ -19,6 +20,7 @@ export default createStore({
         movie: state => state.movie,
         loading: state => state.loading,
         error: state => state.error,
+        searchQuery: state => state.searchQuery,
     },
     mutations: {
         setGenres(state, genres) {
@@ -41,6 +43,9 @@ export default createStore({
         },
         setError(state, error) {
             state.error = error;
+        },
+        setSearchQuery(state, query) {
+            state.searchQuery = query;
         },
     },
     actions: {
@@ -102,6 +107,21 @@ export default createStore({
                 commit('setLoading', false);
                 commit('setError', err.message);
             }
+        },
+        async getQueryMovies({ commit }, query) {
+            commit('setLoading', true);
+            commit('setMovies', null);
+            try {
+                const { results } = await getSearchMovies(query);
+                commit('setLoading', false);
+                commit('setMovies', results);
+            } catch (err) {
+                commit('setLoading', false);
+                commit('setError', err.message);
+            }
+        },
+        setSearchQuery({ commit }, query) {
+            commit('setSearchQuery', query);
         },
     },
     modules: {},
