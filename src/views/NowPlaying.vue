@@ -1,6 +1,8 @@
 <template>
+    <v-loader v-if="loading"></v-loader>
+    <app-error v-if="error" :errMsg="error"></app-error>
     <not-found v-if="wrongPage"></not-found>
-    <div v-else class="cards">
+    <div v-if="movies?.length" class="cards">
         <movie-card
             v-for="movie in movies"
             :key="movie.id"
@@ -24,6 +26,8 @@
 import MovieCard from '@/components/MovieCard.vue';
 import AppPagination from '@/components/AppPagination';
 import NotFound from '@/components/NotFound.vue';
+import AppError from '@/components/AppError.vue';
+import VLoader from '@/components/V-Loader';
 import { isNumeric } from '@/utils';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -33,10 +37,12 @@ export default {
         MovieCard,
         AppPagination,
         NotFound,
+        AppError,
+        VLoader,
     },
     created() {
         if (isNumeric(this.page)) {
-            this.$store.dispatch('getNewMovies', isNumeric(this.page));
+            this.getNewMovies(isNumeric(this.page));
         }
     },
     updated() {
@@ -50,10 +56,10 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['changeNewMoviesPage']),
+        ...mapActions(['getNewMovies', 'changeNewMoviesPage']),
     },
     computed: {
-        ...mapGetters(['movies', 'currentPage', 'totalPages']),
+        ...mapGetters(['movies', 'currentPage', 'totalPages', 'error', 'loading']),
         wrongPage() {
             return !(isNumeric(this.page) && this.currentPage <= this.totalPages);
         },
