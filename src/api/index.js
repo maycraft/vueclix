@@ -1,10 +1,12 @@
 import axios from 'axios';
+import store from '@/store';
 import {
     API_URL_MOVIE,
     API_CONSTANT,
     API_URL_GENRE,
     API_URL_NOW_PLAYING,
     API_URL_SEARCH,
+    API_URL_UPCOMING,
 } from '../constants';
 
 function handleError(err) {
@@ -12,6 +14,8 @@ function handleError(err) {
 }
 
 async function getData(url) {
+    store.dispatch('setLoading', true);
+    store.dispatch('setError', null);
     try {
         const res = await axios.get(url);
         if (res.status === 200) {
@@ -21,15 +25,20 @@ async function getData(url) {
         }
     } catch (err) {
         handleError(err);
+    } finally {
+        store.dispatch('setLoading', false);
     }
 }
 
-export const getNewMovies = page => {
-    return getData(API_URL_NOW_PLAYING + page);
-};
 export const getGenres = async () => {
     const res = await getData(API_URL_GENRE);
     return res.genres;
+};
+export const getNewMovies = async page => {
+    return await getData(API_URL_NOW_PLAYING + page);
+};
+export const getUpcomingMovies = async page => {
+    return await getData(API_URL_UPCOMING + page);
 };
 export const getMovieById = async id => {
     return await getData(`${API_URL_MOVIE}/${id}${API_CONSTANT}&append_to_response=videos,credits`);
@@ -37,5 +46,3 @@ export const getMovieById = async id => {
 export const getSearchMovies = async query => {
     return await getData(API_URL_SEARCH + query);
 };
-
-// getUpcomingMovies(page) {}
