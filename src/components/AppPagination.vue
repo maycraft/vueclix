@@ -31,11 +31,11 @@
             </li>
             <template v-if="current <= lastIndent">
                 <li class="pagination__item">...</li>
-                <li class="pagination__item" @click="setPage(total)">{{ total }}</li>
+                <li class="pagination__item" @click="setPage(totalPage)">{{ totalPage }}</li>
             </template>
             <li
                 class="pagination__btn"
-                :class="{ 'pagination__btn-disabled': current == total }"
+                :class="{ 'pagination__btn-disabled': current == totalPage }"
                 @click="onNextPage"
             >
                 <svg
@@ -80,13 +80,16 @@ export default {
             }
         },
         onNextPage() {
-            if (this.current < this.total) {
+            if (this.current < this.totalPage) {
                 this.$router.push({ path: this.$route.path, query: { page: this.current + 1 } });
                 this.$emit('changePage', this.current + 1);
             }
         },
     },
     computed: {
+        totalPage() {
+            return this.total < 500 ? this.total : 500;
+        },
         pageNumber() {
             return Math.ceil(this.current / this.pageCount);
         },
@@ -97,13 +100,13 @@ export default {
             return this.endPosition - this.pageCount;
         },
         allPages() {
-            return Array.from({ length: this.total }, (v, k) => k + 1);
+            return Array.from({ length: this.totalPage }, (v, k) => k + 1);
         },
         showPages() {
             return this.allPages.filter(p => p > this.startPosition && p <= this.endPosition);
         },
         lastIndent() {
-            return (this.total % this.pageCount && this.total - this.pageCount) + 1;
+            return (this.totalPage % this.pageCount && this.totalPage - this.pageCount) + 1;
         },
     },
 };
