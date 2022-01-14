@@ -1,10 +1,11 @@
 <template>
     <loading
         :active="true"
-        color="#0277bd"
+        :color="color"
         :loader="type"
-        background-color="#000"
+        :background-color="bgColor"
         :width="100"
+        :is-full-page="isFullPage"
     ></loading>
 </template>
 <script>
@@ -20,6 +21,18 @@ export default {
         type: {
             type: String,
             default: 'dots',
+        },
+        isFullPage: {
+            type: Boolean,
+            default: true,
+        },
+        bgColor: {
+            type: String,
+            default: '#000',
+        },
+        color: {
+            type: String,
+            default: '#0277bd',
         },
     },
 };
