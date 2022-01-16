@@ -3,7 +3,6 @@
         <div className="card__image">
             <img v-if="hasPoster" :src="posterURL" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
-            }
         </div>
         <p className="card__title">{{ `${title} (${releaseDate})` }}</p>
         <p className="card__genres">{{ movieGenres }}</p>
