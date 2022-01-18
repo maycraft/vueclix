@@ -29,10 +29,10 @@
             >
                 {{ page }}
             </li>
-            <template v-if="current <= lastIndent">
-                <li class="pagination__item">...</li>
-                <li class="pagination__item" @click="setPage(totalPage)">{{ totalPage }}</li>
-            </template>
+            <li v-if="current <= lastIndent" class="pagination__item">...</li>
+            <li v-if="current < total" class="pagination__item" @click="setPage(totalPage)">
+                {{ totalPage }}
+            </li>
             <li
                 class="pagination__btn"
                 :class="{ 'pagination__btn-disabled': current == totalPage }"
