@@ -6,7 +6,16 @@
         <h3 class="movie__original-title">{{ item.original_title }}</h3>
         <h5 class="movie__tagline">{{ item.tagline }}</h5>
         <div class="movie__poster">
-            <img :src="imageURL" :alt="item.title" />
+            <div v-if="imageURL">
+                <img :src="imageURL" :alt="item.title" v-show="showImage" @load="loadImg" />
+                <v-loader
+                    v-if="!showImage"
+                    type="spinner"
+                    :isFullPage="false"
+                    bgColor="#fff"
+                ></v-loader>
+            </div>
+            <img v-else src="@/assets/img/no_poster.jpg" :alt="item.title" />
         </div>
         <div class="movie__info">
             <p>
@@ -69,16 +78,7 @@
             <template v-if="item.videos.length">
                 <div class="trailer" :key="video.key" v-for="video in item.videos">
                     <h3 class="trailer__title">{{ video.name }}</h3>
-                    <div class="relation video">
-                        <div class="relation__ratio">
-                            <iframe
-                                class="relation__content"
-                                :src="'https://www.youtube.com/embed/' + video.key"
-                                title="YouTube video player"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    </div>
+                    <v-youtube :videoKey="video.key"></v-youtube>
                 </div>
             </template>
             <p
@@ -99,6 +99,7 @@
                     :image-path="actor.profile_path"
                     :name="actor.name"
                     :character="actor.character"
+                    :gender="actor.gender"
                     v-for="actor in item.cast"
                 ></actor-card>
             </div>
@@ -109,6 +110,7 @@
 import ActorCard from '@/components/ActorCard.vue';
 import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/V-Loader.vue';
+import VYoutube from '@/components/V-Youtube.vue';
 import { mapGetters, mapActions } from 'vuex';
 import { POSTER_URL_SM } from '@/constants';
 import { mapCrewItem } from '@/utils';
@@ -122,17 +124,19 @@ export default {
         ActorCard,
         VLoader,
         NotFound,
+        VYoutube,
     },
     name: 'ItemDescription',
     data() {
         return {
+            showImage: false,
             id: this.$route.params.id,
         };
     },
     computed: {
         ...mapGetters({ item: 'movie', loading: 'loading', error: 'error' }),
         imageURL() {
-            return POSTER_URL_SM + this.item.poster_path;
+            return this.item.poster_path ? POSTER_URL_SM + this.item.poster_path : null;
         },
         releaseYear() {
             return this.item.release_date.split('-')[0];
@@ -150,6 +154,9 @@ export default {
     methods: {
         ...mapActions(['fetchMovieByID']),
         mapCrewItem,
+        loadImg() {
+            this.showImage = true;
+        },
     },
 };
 </script>
@@ -178,15 +185,19 @@ export default {
     }
 
     &__poster {
+        position: relative;
         & img {
-            max-width: 100%;
+            width: 100%;
         }
     }
 
     &__info {
         p {
             margin-bottom: 1rem;
-            // color: #ffeb3b;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
@@ -219,34 +230,7 @@ export default {
 .trailer {
     &__title {
         text-align: center;
-        padding-bottom: 1rem;
-    }
-}
-
-.actor {
-    margin-bottom: 0.7rem;
-    text-align: center;
-
-    &__avatar {
-        &_slug {
-            padding-top: 48%;
-            background: lightgray;
-            max-width: 300px;
-            margin: 0 auto;
-        }
-
-        img {
-            max-width: 100%;
-        }
-    }
-
-    &__name {
-        color: #424242;
-    }
-
-    &__character {
-        font-size: 0.75rem;
-        color: #9e9e9e;
+        padding: 1rem 0;
     }
 }
 
@@ -265,28 +249,5 @@ export default {
     .actor {
         @include make-col(2);
     }
-}
-.relation {
-    margin: 0 auto;
-    position: relative;
-}
-
-.relation__ratio {
-    padding-top: 56.25%;
-    height: 0;
-}
-
-.relation__content {
-    position: absolute;
-    border: none;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-
-.video {
-    max-width: 700px;
-    margin-bottom: 1rem;
 }
 </style>
