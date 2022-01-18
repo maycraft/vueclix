@@ -28,7 +28,7 @@ body {
 }
 
 body {
-    background: url('./assets/img/background.png') top center no-repeat;
+    background: url('./assets/img/background.jpg') top center no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
