@@ -11,6 +11,7 @@
             :title="movie.title"
             :release="movie.release_date"
             :genres="movie.genre_ids"
+            :rating="movie.vote_average"
             @click="$router.push(`/movie/${movie.id}`)"
         ></movie-card>
         <app-pagination
@@ -76,53 +77,53 @@ export default {
     padding-bottom: calc(var(--bs-gutter-x) / 2);
     justify-content: flex-start;
 }
-.card {
-    max-width: 350px;
-    margin-bottom: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
+// .card {
+//     max-width: 350px;
+//     margin-bottom: 0.5rem;
+//     display: flex;
+//     flex-direction: column;
+//     cursor: pointer;
 
-    &__image {
-        position: relative;
-        margin-bottom: 0.5rem;
-        overflow: hidden;
-        padding-bottom: 150%;
-        img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
+//     &__image {
+//         position: relative;
+//         margin-bottom: 0.5rem;
+//         overflow: hidden;
+//         padding-bottom: 150%;
+//         img {
+//             position: absolute;
+//             top: 0;
+//             right: 0;
+//             width: 100%;
+//             height: 100%;
+//             object-fit: cover;
+//         }
+//     }
 
-    &__title {
-        margin-bottom: 0.5rem;
-    }
+//     &__title {
+//         margin-bottom: 0.5rem;
+//     }
 
-    &__genres {
-        font-size: 0.75rem;
-        color: #0277bd;
-        min-height: 1.5rem;
-        margin-top: auto;
-    }
-}
+//     &__genres {
+//         font-size: 0.75rem;
+//         color: #0277bd;
+//         min-height: 1.5rem;
+//         margin-top: auto;
+//     }
+// }
 
-@include media-breakpoint-up(sm) {
-    .card {
-        @include make-col(6);
-    }
-}
-@include media-breakpoint-up(md) {
-    .card {
-        @include make-col(4);
-    }
-}
-@include media-breakpoint-up(lg) {
-    .card {
-        @include make-col(3);
-    }
-}
+// @include media-breakpoint-up(sm) {
+//     .card {
+//         @include make-col(6);
+//     }
+// }
+// @include media-breakpoint-up(md) {
+//     .card {
+//         @include make-col(4);
+//     }
+// }
+// @include media-breakpoint-up(lg) {
+//     .card {
+//         @include make-col(3);
+//     }
+// }
 </style>

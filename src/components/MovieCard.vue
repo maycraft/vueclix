@@ -6,6 +6,7 @@
         </div>
         <p className="card__title">{{ `${title} (${releaseDate})` }}</p>
         <p className="card__genres">{{ movieGenres }}</p>
+        <span v-if="rating" class="card__rating">{{ rating }}</span>
     </div>
     <card-loader v-else></card-loader>
 </template>
@@ -32,6 +33,10 @@ export default {
         },
         genres: {
             type: Array,
+            required: true,
+        },
+        rating: {
+            type: Number,
             required: true,
         },
     },
@@ -75,4 +80,64 @@ export default {
     },
 };
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.card {
+    max-width: 350px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+
+    &__image {
+        margin-bottom: 0.5rem;
+        overflow: hidden;
+        padding-bottom: 150%;
+        img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__title {
+        margin-bottom: 0.5rem;
+    }
+
+    &__genres {
+        font-size: 0.75rem;
+        color: $blue;
+        min-height: 1.5rem;
+        margin-top: auto;
+    }
+
+    &__rating {
+        color: $white;
+        background: $green;
+        padding: 5px;
+        position: absolute;
+        top: 10px;
+        left: 25px;
+        min-width: 32px;
+        text-align: center;
+    }
+}
+@include media-breakpoint-up(sm) {
+    .card {
+        @include make-col(6);
+    }
+}
+@include media-breakpoint-up(md) {
+    .card {
+        @include make-col(4);
+    }
+}
+@include media-breakpoint-up(lg) {
+    .card {
+        @include make-col(3);
+    }
+}
+</style>
