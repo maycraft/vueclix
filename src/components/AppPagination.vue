@@ -30,7 +30,11 @@
                 {{ page }}
             </li>
             <li v-if="current <= lastIndent" class="pagination__item">...</li>
-            <li v-if="current < total" class="pagination__item" @click="setPage(totalPage)">
+            <li
+                v-if="total > pageCount && current < total"
+                class="pagination__item"
+                @click="setPage(totalPage)"
+            >
                 {{ totalPage }}
             </li>
             <li
