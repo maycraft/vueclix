@@ -90,6 +90,7 @@ export default {
     position: relative;
 
     &__image {
+        position: relative;
         margin-bottom: 0.5rem;
         overflow: hidden;
         padding-bottom: 150%;
