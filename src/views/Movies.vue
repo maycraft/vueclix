@@ -15,12 +15,14 @@
             @click="$router.push(`/movie/${movie.id}`)"
         ></movie-card>
         <app-pagination
+            v-if="category !== 'search'"
             :current="currentPage"
             :total="totalPages"
             :pageCount="3"
-            @change-page="changeNewMoviesPage"
+            @change-page="changePage"
         ></app-pagination>
     </div>
+    <not-found v-if="emptySearch" errMsg="По запросу ничего не найдено!"></not-found>
 </template>
 
 <script>
@@ -43,7 +45,7 @@ export default {
     },
     created() {
         if (isNumeric(this.page)) {
-            this.getNewMovies(isNumeric(this.page));
+            this.getMovies({ category: this.category, page: isNumeric(this.page) });
         }
     },
     updated() {
@@ -51,18 +53,40 @@ export default {
             window.scrollTo(0, 0);
         });
     },
-    data() {
-        return {
-            page: this.$route.query.page,
-        };
-    },
     methods: {
-        ...mapActions(['getNewMovies', 'changeNewMoviesPage']),
+        ...mapActions(['getMovies', 'changeMoviesPage']),
+        changePage(page) {
+            this.changeMoviesPage({ category: this.category, page });
+        },
     },
     computed: {
         ...mapGetters(['movies', 'currentPage', 'totalPages', 'error', 'loading']),
         wrongPage() {
-            return !(isNumeric(this.page) && this.currentPage <= this.totalPages);
+            if (this.category !== 'search') {
+                return !(isNumeric(this.page) && this.currentPage <= this.totalPages);
+            } else {
+                return false;
+            }
+        },
+        emptySearch() {
+            return this.category === 'search' && this.movies ? !this.movies?.length : false;
+        },
+        page() {
+            return this.$route.query.page;
+        },
+        category() {
+            return this.$route.params.category;
+        },
+    },
+    watch: {
+        $route(to) {
+            if (isNumeric(to.query.page)) {
+                this.getMovies({ category: to.params.category, page: isNumeric(to.query.page) });
+                this.changeMoviesPage({
+                    category: to.params.category,
+                    page: isNumeric(to.query.page),
+                });
+            }
         },
     },
 };
@@ -76,54 +100,21 @@ export default {
     padding-top: calc(var(--bs-gutter-x) / 2);
     padding-bottom: calc(var(--bs-gutter-x) / 2);
     justify-content: flex-start;
+
+    @include media-breakpoint-up(sm) {
+        .card {
+            @include make-col(6);
+        }
+    }
+    @include media-breakpoint-up(md) {
+        .card {
+            @include make-col(4);
+        }
+    }
+    @include media-breakpoint-up(lg) {
+        .card {
+            @include make-col(3);
+        }
+    }
 }
-// .card {
-//     max-width: 350px;
-//     margin-bottom: 0.5rem;
-//     display: flex;
-//     flex-direction: column;
-//     cursor: pointer;
-
-//     &__image {
-//         position: relative;
-//         margin-bottom: 0.5rem;
-//         overflow: hidden;
-//         padding-bottom: 150%;
-//         img {
-//             position: absolute;
-//             top: 0;
-//             right: 0;
-//             width: 100%;
-//             height: 100%;
-//             object-fit: cover;
-//         }
-//     }
-
-//     &__title {
-//         margin-bottom: 0.5rem;
-//     }
-
-//     &__genres {
-//         font-size: 0.75rem;
-//         color: #0277bd;
-//         min-height: 1.5rem;
-//         margin-top: auto;
-//     }
-// }
-
-// @include media-breakpoint-up(sm) {
-//     .card {
-//         @include make-col(6);
-//     }
-// }
-// @include media-breakpoint-up(md) {
-//     .card {
-//         @include make-col(4);
-//     }
-// }
-// @include media-breakpoint-up(lg) {
-//     .card {
-//         @include make-col(3);
-//     }
-// }
 </style>

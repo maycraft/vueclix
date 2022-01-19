@@ -11,21 +11,20 @@
             <ul class="menu">
                 <li class="menu__item">
                     <router-link
-                        :to="{ name: 'now-playing', query: { page: 1 } }"
+                        :to="{ path: '/movies/now_playing', query: { page: 1 } }"
                         class="menu__link"
                         active-class="active"
                     >
                         Новинки
                     </router-link>
                 </li>
-                <!-- <li class="menu__item">
-                    <router-link to="/upcoming" class="menu__link" active-class="active">
-                        Ожидаемые
-                    </router-link>
-                </li> -->
                 <li class="menu__item">
-                    <router-link to="/popular" class="menu__link" active-class="active">
-                        Популярные
+                    <router-link
+                        :to="{ path: '/movies/upcoming', query: { page: 1 } }"
+                        class="menu__link"
+                        active-class="active"
+                    >
+                        Ожидаемые
                     </router-link>
                 </li>
             </ul>
@@ -90,7 +89,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['getQueryMovies', 'setSearchQuery']),
+        ...mapActions(['getMovies', 'setSearchQuery']),
         toggleShow() {
             if (this.showSearch) {
                 this.setSearchQuery('');
@@ -101,8 +100,8 @@ export default {
             const value = event.target.value;
             this.setSearchQuery(value);
             if (value) {
-                this.$router.push(`/search?q=${value}`);
-                this.getQueryMovies(value);
+                this.$router.push(`/movies/search?q=${value}`);
+                this.getMovies({ category: 'search', query: value });
             }
         }, 1000),
     },
@@ -111,7 +110,7 @@ export default {
     },
     watch: {
         $route(to, from) {
-            if (from.name === 'search' && to.name !== 'search') {
+            if (from.params.category === 'search' && to.params.category !== 'search') {
                 this.showSearch = false;
                 this.setSearchQuery('');
             }

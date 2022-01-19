@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getGenres, getNewMovies, getSearchMovies } from '@/api';
+import { getGenres, getNewMovies, getSearchMovies, getUpcomingMovies } from '@/api';
 import { getMovieById } from '../api';
 export default createStore({
     state: {
@@ -49,76 +49,94 @@ export default createStore({
         },
     },
     actions: {
+        setError({ commit }, errMsg) {
+            commit('setError', errMsg);
+        },
+        setLoading({ commit }, isLoaded) {
+            commit('setLoading', isLoaded);
+        },
         async getGenres({ commit }) {
-            const genres = await getGenres();
-            commit('setGenres', genres);
+            try {
+                const genres = await getGenres();
+                commit('setGenres', genres);
+            } catch (err) {
+                commit('setError', err.message);
+            }
         },
-        async getNewMovies({ commit }, currentPage) {
-            const { total_pages, results } = await getNewMovies(currentPage);
-            commit('setPage', currentPage);
-            commit('setTotalPages', total_pages);
-            commit('setMovies', results);
+        async getMovies({ commit }, payload) {
+            const { category, page = 1, query = '' } = payload;
+            let fetchMovies = '';
+            commit('setMovies', null);
+            switch (category) {
+                case 'now_playing':
+                    fetchMovies = getNewMovies;
+                    break;
+                case 'upcoming':
+                    fetchMovies = getUpcomingMovies;
+                    break;
+                case 'search':
+                    fetchMovies = getSearchMovies;
+                    break;
+            }
+            try {
+                if (category === 'search') {
+                    const { results } = await getSearchMovies(query);
+                    commit('setMovies', results);
+                } else {
+                    const { total_pages, results } = await fetchMovies(page);
+                    commit('setPage', page);
+                    commit('setTotalPages', total_pages);
+                    commit('setMovies', results);
+                }
+            } catch (err) {
+                if (err.message === 'fetchMovies is not a function') {
+                    commit('setError', 'Не верный url-адрес');
+                } else {
+                    commit('setError', err.message);
+                }
+            }
         },
-        async changeNewMoviesPage({ commit, dispatch }, page) {
-            commit('setPage', page);
-            dispatch('getNewMovies', page);
+        async changeMoviesPage({ commit, dispatch }, payload) {
+            commit('setPage', payload.page);
+            dispatch('getMovies', payload);
         },
         async fetchMovieByID({ commit }, id) {
-            commit('setLoading', true);
             commit('setMovie', null);
-            commit('setError', null);
-            try {
-                const req = await getMovieById(id);
-                const {
-                    title,
-                    original_title,
-                    release_date,
-                    tagline,
-                    poster_path,
-                    genres,
-                    homepage,
-                    backdrop_path,
-                    production_companies,
-                    production_countries,
-                    overview,
-                    videos,
-                    credits,
-                } = req;
-                const movie = {
-                    id,
-                    title,
-                    original_title,
-                    release_date,
-                    tagline,
-                    poster_path,
-                    genres,
-                    homepage,
-                    backdrop_path,
-                    production_countries,
-                    production_companies,
-                    overview,
-                    videos: videos.results,
-                    cast: credits.cast.slice(0, 12),
-                    crew: credits.crew,
-                };
-                commit('setLoading', false);
-                commit('setMovie', movie);
-            } catch (err) {
-                commit('setLoading', false);
-                commit('setError', err.message);
-            }
-        },
-        async getQueryMovies({ commit }, query) {
-            commit('setLoading', true);
-            commit('setMovies', null);
-            try {
-                const { results } = await getSearchMovies(query);
-                commit('setLoading', false);
-                commit('setMovies', results);
-            } catch (err) {
-                commit('setLoading', false);
-                commit('setError', err.message);
-            }
+            const {
+                title,
+                original_title,
+                release_date,
+                tagline,
+                poster_path,
+                genres,
+                homepage,
+                backdrop_path,
+                production_companies,
+                production_countries,
+                overview,
+                videos,
+                credits,
+                vote_average,
+            } = await getMovieById(id);
+            const movie = {
+                id,
+                title,
+                original_title,
+                release_date,
+                tagline,
+                poster_path,
+                genres,
+                homepage,
+                backdrop_path,
+                production_countries,
+                production_companies,
+                overview,
+                videos: videos.results.reverse(),
+                cast: credits.cast.slice(0, 12),
+                crew: credits.crew,
+                rating: vote_average,
+            };
+            commit('setMovie', movie);
         },
         setSearchQuery({ commit }, query) {
             commit('setSearchQuery', query);
