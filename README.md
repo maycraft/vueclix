@@ -1,24 +1,17 @@
-# vueclix
+# Проект Vueclix
 
-## Project setup
-```
-npm install
-```
+Вывод новинок кино, с возможностью просмотра описания фильма и трейлера.
+Также можно искать фильмы в поиске.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+**Стек:** HTML, SCSS, BEM, Vue 3, Vuex, Vue Router, Axios
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Инструкция по запуску
 
-### Lints and fixes files
-```
-npm run lint
-```
+-   Скачать или клонировать проект
+-   Установить зависимости `npm install`
+-   Запустить в dev режиме `npm start`
+-   Запустить продакшн сборку проекта `npm run build`
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### Посмотреть сайт:
+
+[https://maycraft.github.io/vueclix/](https://maycraft.github.io/vueclix/)
