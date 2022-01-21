@@ -44,8 +44,11 @@ export default {
         VLoader,
     },
     created() {
-        if (isNumeric(this.page)) {
+        if (this.page && isNumeric(this.page)) {
             this.getMovies({ category: this.category, page: isNumeric(this.page) });
+        } else {
+            this.setSearchQuery(this.$route.query.q);
+            this.getMovies({ category: this.category, query: this.$route.query.q });
         }
     },
     updated() {
@@ -54,7 +57,7 @@ export default {
         });
     },
     methods: {
-        ...mapActions(['getMovies', 'changeMoviesPage']),
+        ...mapActions(['getMovies', 'changeMoviesPage', 'setSearchQuery']),
         changePage(page) {
             this.changeMoviesPage({ category: this.category, page });
         },
