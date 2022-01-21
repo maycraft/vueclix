@@ -89,6 +89,11 @@ export default {
     cursor: pointer;
     position: relative;
 
+    @media screen and (max-width: 576px) {
+        padding: 0 1.3rem !important;
+        margin-bottom: 1rem;
+    }
+
     &__image {
         position: relative;
         margin-bottom: 0.5rem;
@@ -113,6 +118,10 @@ export default {
         color: $blue;
         min-height: 1.5rem;
         margin-top: auto;
+
+        @media screen and (max-width: 576px) {
+            font-size: 1.2em;
+        }
     }
 
     &__rating {

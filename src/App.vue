@@ -25,12 +25,23 @@ body {
     font-size: 16px;
     position: relative;
     font-family: 'Helvetica Neue Cyr', sans-serif;
+
+    @media screen and (max-width: 576px) {
+        font-size: 14px;
+    }
 }
 
 body {
     background: url('./assets/img/background.jpg') top center no-repeat;
     background-size: cover;
     background-attachment: fixed;
+}
+
+p,
+span {
+    @media screen and (max-width: 576px) {
+        font-size: 1.3em;
+    }
 }
 
 #root {

@@ -197,10 +197,17 @@ export default {
     // background-size: cover;
     // background-repeat: no-repeat;
     // background: url() top left contain no-repeat;
+    @media screen and (max-width: 576px) {
+        padding: 3rem 1rem 1rem;
+    }
 
     &__title {
         max-width: 70%;
         margin: auto;
+
+        @media screen and (max-width: 576px) {
+            max-width: 100%;
+        }
     }
 
     &__original-title {
