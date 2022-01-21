@@ -35,6 +35,14 @@ export default {
                     title: 'Ожидаемые',
                     link: '/movies/upcoming?page=1',
                 },
+                {
+                    title: 'Популярные',
+                    link: '/movies/popular?page=1',
+                },
+                {
+                    title: 'Избранные',
+                    link: '/movies/top_rated?page=1',
+                },
             ],
         };
     },
