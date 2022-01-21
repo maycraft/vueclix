@@ -7,20 +7,20 @@ const routes = [
     {
         path: '/',
         name: 'home',
-        redirect: { path: '/vueclix/movies/now_playing', query: { page: 1 } },
+        redirect: { path: '/movies/now_playing', query: { page: 1 } },
     },
     {
-        path: '/vueclix/movies/:category',
+        path: '/movies/:category',
         name: 'movies',
         component: Movies,
     },
     {
-        path: '/vueclix/movie/:id',
+        path: '/movie/:id',
         name: 'Movie',
         component: ItemDescription,
     },
     {
-        path: '/vueclix/:pathMatch(.*)*',
+        path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFound,
     },
