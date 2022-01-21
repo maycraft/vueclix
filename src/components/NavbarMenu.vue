@@ -106,6 +106,13 @@ export default {
             default: '',
         },
     },
+    created() {
+        window.addEventListener('resize', this.checkSize);
+        this.checkSize();
+    },
+    unmounted() {
+        window.removeEventListener('resize', this.checkSize);
+    },
     data() {
         return {
             showSearch: false,
@@ -113,6 +120,9 @@ export default {
         };
     },
     methods: {
+        checkSize() {
+            this.showMenu = window.innerWidth >= 768;
+        },
         toggleShow() {
             this.showSearch = !this.showSearch;
         },
