@@ -21,6 +21,7 @@
             :pageCount="3"
             @change-page="changePage"
         ></app-pagination>
+        <scroll-top @scroll="scrollUp" />
     </div>
     <not-found v-if="emptySearch" errMsg="По запросу ничего не найдено!"></not-found>
 </template>
@@ -31,6 +32,8 @@ import AppPagination from '@/components/AppPagination';
 import NotFound from '@/components/NotFound.vue';
 import AppError from '@/components/AppError.vue';
 import VLoader from '@/components/V-Loader';
+import ScrollTop from '@/components/ScrollTop';
+
 import { isNumeric } from '@/utils';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -42,6 +45,7 @@ export default {
         NotFound,
         AppError,
         VLoader,
+        ScrollTop,
     },
     created() {
         if (this.page && isNumeric(this.page)) {
@@ -51,15 +55,16 @@ export default {
             this.getMovies({ category: this.category, query: this.$route.query.q });
         }
     },
-    updated() {
-        this.$nextTick(function () {
-            window.scrollTo(0, 0);
-        });
-    },
     methods: {
         ...mapActions(['getMovies', 'changeMoviesPage', 'setSearchQuery']),
         changePage(page) {
             this.changeMoviesPage({ category: this.category, page });
+        },
+        scrollUp() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
         },
     },
     computed: {
@@ -103,6 +108,7 @@ export default {
     padding-top: calc(var(--bs-gutter-x) / 2);
     padding-bottom: calc(var(--bs-gutter-x) / 2);
     justify-content: flex-start;
+    position: relative;
 
     @include media-breakpoint-up(sm) {
         .card {
