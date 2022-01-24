@@ -208,6 +208,11 @@ export default {
     &__info {
         p {
             margin-bottom: 1rem;
+            @media screen and (max-width: 576px) {
+                &:first-child {
+                    margin-top: 1rem;
+                }
+            }
 
             &:last-child {
                 margin-bottom: 0;

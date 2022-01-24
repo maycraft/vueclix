@@ -90,7 +90,6 @@ export default {
     position: relative;
 
     @media screen and (max-width: 576px) {
-        padding: 0 1.3rem !important;
         margin-bottom: 1rem;
     }
 
@@ -131,8 +130,13 @@ export default {
         position: absolute;
         top: 10px;
         left: 25px;
+        // right: calc(80% + 5px);
         min-width: 32px;
         text-align: center;
+
+        @media screen and (max-width: 576px) {
+            // left: 40px;
+        }
     }
 }
 @include media-breakpoint-up(sm) {

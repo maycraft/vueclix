@@ -56,6 +56,9 @@ export default {
     text-align: center;
 
     &__avatar {
+        @media screen and (max-width: 576px) {
+            padding: 0 var(--bs-gutter-x);
+        }
         &_slug {
             background: #e6e6e6;
             max-width: 300px;

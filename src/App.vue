@@ -40,7 +40,7 @@ body {
 p,
 span {
     @media screen and (max-width: 576px) {
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
 }
 
@@ -60,5 +60,10 @@ span {
 .container {
     @include make-container();
     @include make-max-width-container();
+
+    @media screen and (max-width: 576px) {
+        padding-right: var(--bs-gutter-x, 1.5rem);
+        padding-left: var(--bs-gutter-x, 1.5rem);
+    }
 }
 </style>
