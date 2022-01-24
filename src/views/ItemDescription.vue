@@ -104,32 +104,7 @@
                 ></actor-card>
             </div>
         </div>
-        <button class="backward" @click="$router.go(-1)">
-            <svg
-                version="1.0"
-                xmlns="http://www.w3.org/2000/svg"
-                width="32px"
-                height="32px"
-                viewBox="0 0 512 512"
-                preserveAspectRatio="xMidYMid meet"
-            >
-                <g
-                    transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-                    fill="#1E5894"
-                    stroke="none"
-                >
-                    <path
-                        d="M2500 4724 c-30 -21 -600 -423 -1266 -895 -821 -582 -1214 -866
-                            -1222 -884 -20 -43 -14 -73 20 -110 43 -44 2500 -1783 2532 -1791 31 -7 89 20
-                            105 49 8 16 12 161 14 496 l2 475 60 -3 c290 -11 637 -123 923 -296 415 -251
-                            772 -616 1139 -1168 79 -119 153 -222 163 -227 35 -19 78 -11 112 19 l33 29 3
-                            124 c7 232 -29 586 -83 825 -180 798 -657 1426 -1445 1903 -217 132 -605 319
-                            -830 402 -30 12 -61 25 -67 31 -10 7 -13 120 -13 503 l0 493 -23 26 c-14 17
-                            -36 28 -62 32 -35 4 -48 0 -95 -33z"
-                    />
-                </g>
-            </svg>
-        </button>
+        <button class="backward" @click="$router.go(-1)">Назад</button>
     </main>
 </template>
 <script>
@@ -198,7 +173,7 @@ export default {
     // background-repeat: no-repeat;
     // background: url() top left contain no-repeat;
     @media screen and (max-width: 576px) {
-        padding: 3rem 1rem 1rem;
+        padding: 3rem 0.2rem 0;
     }
 
     &__title {
@@ -298,11 +273,8 @@ export default {
     background: transparent;
     cursor: pointer;
     position: absolute;
-    left: 0.75rem;
+    right: 2rem;
     top: 0.5rem;
-
-    svg {
-        max-width: 100%;
-    }
+    color: $blue;
 }
 </style>
