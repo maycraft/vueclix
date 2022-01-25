@@ -1,10 +1,8 @@
 <template>
     <header class="header">
         <div class="header__logo">
-            <router-link :to="{ name: 'home' }" custom v-slot="{ href, navigate }">
-                <a :href="href" @click="navigate">
-                    <img src="@/assets/img/new-logo.png" alt="VueClix" />
-                </a>
+            <router-link :to="{ name: 'home' }" class="header__brand">
+                <img src="@/assets/img/brand.png" alt="VueClix" />
             </router-link>
         </div>
         <nav class="header__menu">
@@ -66,19 +64,21 @@ export default {
     --bs-gutter-y: 0.75rem;
     padding: 20px 0;
     position: relative;
+    align-items: center;
 
     &__logo {
         font-family: 'Limelight', cursive;
         color: $white;
-        font-size: 2.5rem;
         line-height: 75%;
 
         span {
             color: #f1ff09;
         }
-
+    }
+    &__brand {
+        display: inline-block;
         img {
-            max-width: 140px;
+            max-height: 2.2rem;
         }
     }
 
