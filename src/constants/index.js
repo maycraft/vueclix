@@ -37,6 +37,8 @@ export const API_URL_GENERATE_SESSION = API_URL + API_GENERATE_SESSION + API_KEY
 export const API_URL_SEARCH =
     API_URL + API_TYPE_SEARCH + API_CATEGORY_MOVIE + API_CONSTANT + API_QUERY_PARAM;
 
+export const API_URL_RATING = API_URL + API_CATEGORY_MOVIE;
+
 export const POSTER_URL_SM = 'https://image.tmdb.org/t/p/w300';
 
 export const POSTER_URL_MD = 'https://image.tmdb.org/t/p/w500';
