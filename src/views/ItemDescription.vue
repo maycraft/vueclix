@@ -16,6 +16,20 @@
                 ></v-loader>
             </div>
             <img v-else src="@/assets/img/no_poster.jpg" :alt="item.title" />
+            <div class="movie__rating rating">
+                <div class="rating__common">
+                    <p>
+                        Рейтинг <a class="rating__link" href="https://www.themoviedb.org/">TMDB</a>:
+                    </p>
+                    <span class="rating__current">{{ item.rating }}/10</span>
+                </div>
+                <v-rating
+                    :selected="selected"
+                    :stars="stars"
+                    :error="ratingError"
+                    @select="onSelect"
+                />
+            </div>
         </div>
         <div class="movie__info">
             <p>
@@ -112,26 +126,42 @@ import ActorCard from '@/components/ActorCard.vue';
 import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/V-Loader.vue';
 import VYoutube from '@/components/V-Youtube.vue';
+import VRating from '@/components/VRating.vue';
+
 import { mapGetters, mapActions } from 'vuex';
 import { POSTER_URL_SM } from '@/constants';
 import { mapCrewItem } from '@/utils';
 import { isNumeric } from '@/utils';
+import { postRating, generateSessionID } from '@/api';
 
 export default {
     created() {
         this.fetchMovieByID(isNumeric(this.id));
+        if (!sessionStorage.getItem('sessionID')) {
+            generateSessionID().then(sessionID => {
+                sessionStorage.setItem('sessionID', JSON.stringify(sessionID));
+            });
+        }
+        if (!localStorage.getItem('ratings')) localStorage.setItem('ratings', JSON.stringify([]));
+        this.ratings = JSON.parse(localStorage.getItem('ratings'));
+        this.findRating();
     },
     components: {
         ActorCard,
         VLoader,
         NotFound,
         VYoutube,
+        VRating,
     },
     name: 'ItemDescription',
     data() {
         return {
             showImage: false,
             id: this.$route.params.id,
+            selected: '',
+            ratings: [],
+            ratingError: false,
+            stars: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
         };
     },
     computed: {
@@ -151,12 +181,29 @@ export default {
         companies() {
             return this.item.production_companies.map(item => item.name).join(', ');
         },
+        sessionID() {
+            return JSON.parse(sessionStorage.getItem('sessionID')) || '';
+        },
     },
     methods: {
         ...mapActions(['fetchMovieByID']),
         mapCrewItem,
         loadImg() {
             this.showImage = true;
+        },
+        findRating() {
+            this.selected = this.ratings.find(item => item.id == this.id)?.rating;
+        },
+        onSelect(rating) {
+            postRating(this.id, rating, this.sessionID).then(success => {
+                if (success) {
+                    this.selected = rating;
+                    this.ratings.push({ id: this.id, rating });
+                    localStorage.setItem('ratings', JSON.stringify(this.ratings));
+                } else {
+                    this.ratingError = true;
+                }
+            });
         },
     },
 };
@@ -203,6 +250,11 @@ export default {
         & img {
             width: 100%;
         }
+    }
+
+    &__rating {
+        padding: 1rem 1rem 0;
+        height: 80px;
     }
 
     &__info {
@@ -281,5 +333,30 @@ export default {
     right: 2rem;
     top: 0.5rem;
     color: $blue;
+}
+.rating {
+    &__current {
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        margin-bottom: 10px;
+
+        &::before {
+            content: '★';
+            color: gold;
+            font-size: 30px;
+            line-height: 25px;
+            margin-right: 5px;
+        }
+    }
+
+    &__common {
+        display: flex;
+        font-size: 1.3rem;
+        height: 30px;
+    }
+    &__link {
+        color: #2e44e3;
+    }
 }
 </style>
