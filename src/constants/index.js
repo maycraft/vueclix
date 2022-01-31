@@ -12,9 +12,7 @@ const API_TYPE_SEARCH = '/search';
 
 const API_TYPE_NOW_PLAYING = '/now_playing';
 
-// const API_TYPE_POPULAR = '/popular';
-
-// const API_TYPE_TOP_RATED = '/top_rated';
+const API_GENERATE_SESSION = '/authentication/guest_session/new';
 
 // const API_REGION_RU = '&language=ru&region=ru'
 const API_REGION_RU = '&language=ru-RU&region=RU';
@@ -33,6 +31,8 @@ export const API_URL_NOW_PLAYING =
     API_URL_MOVIE + API_TYPE_NOW_PLAYING + API_CONSTANT + API_PAGE_PARAM;
 
 export const API_URL_GENRE = API_URL + API_CATEGORY_GENRE + API_CONSTANT;
+
+export const API_URL_GENERATE_SESSION = API_URL + API_GENERATE_SESSION + API_KEY;
 
 export const API_URL_SEARCH =
     API_URL + API_TYPE_SEARCH + API_CATEGORY_MOVIE + API_CONSTANT + API_QUERY_PARAM;
