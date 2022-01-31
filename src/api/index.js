@@ -8,6 +8,8 @@ import {
     API_URL_SEARCH,
     API_URL_UPCOMING,
     API_URL_GENERATE_SESSION,
+    API_URL_RATING,
+    API_KEY,
 } from '../constants';
 
 function handleError(err) {
@@ -51,4 +53,21 @@ export const getSearchMovies = async query => {
 export const generateSessionID = async () => {
     const res = await axios.get(API_URL_GENERATE_SESSION);
     return res.data.guest_session_id;
+};
+export const postRating = async (movieID, rating, sessionID) => {
+    const url = `${API_URL_RATING}/${movieID}/rating${API_KEY}&guest_session_id=${sessionID}`;
+    try {
+        const res = await axios.post(url, JSON.stringify({ value: parseInt(rating) }), {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+            },
+        });
+        return res.data.success;
+    } catch (err) {
+        if (err.response) {
+            console.error(err.response.data);
+        } else {
+            console.error(err.message);
+        }
+    }
 };
