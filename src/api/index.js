@@ -7,6 +7,7 @@ import {
     API_URL_NOW_PLAYING,
     API_URL_SEARCH,
     API_URL_UPCOMING,
+    API_URL_GENERATE_SESSION,
 } from '../constants';
 
 function handleError(err) {
@@ -45,4 +46,9 @@ export const getMovieById = async id => {
 };
 export const getSearchMovies = async query => {
     return await getData(API_URL_SEARCH + query);
+};
+
+export const generateSessionID = async () => {
+    const res = await axios.get(API_URL_GENERATE_SESSION);
+    return res.data.guest_session_id;
 };
