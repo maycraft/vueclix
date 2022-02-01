@@ -7,7 +7,7 @@ import {
     API_URL_NOW_PLAYING,
     API_URL_SEARCH,
     API_URL_UPCOMING,
-    API_URL_GENERATE_SESSION,
+    API_URL_AUTH,
     API_URL_RATING,
     API_KEY,
 } from '../constants';
@@ -51,7 +51,7 @@ export const getSearchMovies = async query => {
 };
 
 export const generateSessionID = async () => {
-    const res = await axios.get(API_URL_GENERATE_SESSION);
+    const res = await axios.get(API_URL_AUTH);
     return res.data.guest_session_id;
 };
 export const postRating = async (movieID, rating, sessionID) => {
