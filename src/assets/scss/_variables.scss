@@ -7,6 +7,20 @@ $red: #f44336;
 $grey: #84878d;
 $green: #287F28;
 
-$gutter: 0.9375rem;
+$grid-columns: 12;
+$gutter: 1.875rem;
 
-$maxWidth: 1165px;
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+);
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+);

@@ -33,6 +33,10 @@ export default {
                     title: 'Ожидаемые',
                     link: '/movies/upcoming?page=1',
                 },
+                {
+                    title: 'Подбор',
+                    link: '/movies/discover?page=1',
+                },
             ],
         };
     },
@@ -60,9 +64,8 @@ export default {
 </script>
 <style lang="scss">
 .header {
-    @extend .row;
-    --bs-gutter-y: 0.75rem;
-    padding: 20px 0;
+    @extend %row;
+    padding: 1.25rem 0;
     position: relative;
     align-items: center;
 
@@ -70,9 +73,11 @@ export default {
         font-family: 'Limelight', cursive;
         color: $white;
         line-height: 75%;
+        min-width: 160px;
+        @include make-col(9);
 
-        span {
-            color: #f1ff09;
+        @include media-breakpoint-up(md) {
+            @include make-col(3);
         }
     }
     &__brand {
@@ -82,23 +87,11 @@ export default {
         }
     }
 
-    @include media-breakpoint-up(xs) {
-        & {
-            --bs-gutter-y: 0;
-        }
-        &__logo {
-            @include make-col(6);
-        }
-        &__menu {
-            @include make-col(6);
-        }
-    }
-    @include media-breakpoint-up(md) {
-        &__logo {
-            @include make-col(4);
-        }
-        &__menu {
-            @include make-col(8);
+    &__menu {
+        @include make-col(3);
+
+        @include media-breakpoint-up(md) {
+            @include make-col(9);
         }
     }
 }
