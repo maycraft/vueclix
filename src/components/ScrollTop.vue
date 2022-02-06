@@ -60,15 +60,10 @@ export default {
     justify-content: center;
     cursor: pointer;
     position: fixed;
-    right: 8%;
+    right: 10vw;
     bottom: 15%;
     padding: 0;
     background: $blue;
-
-    // svg {
-    //     width: 25px;
-    //     height: 25px;
-    // }
 }
 
 .scroll-enter-active,
