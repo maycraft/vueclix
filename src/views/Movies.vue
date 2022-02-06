@@ -2,18 +2,20 @@
     <v-loader v-if="loading"></v-loader>
     <app-error v-if="error" :errMsg="error"></app-error>
     <not-found v-if="wrongPage"></not-found>
-    <div v-if="movies?.length" class="cards">
-        <movie-card
-            v-for="movie in movies"
-            :key="movie.id"
-            :id="movie.id"
-            :poster="movie.poster_path"
-            :title="movie.title"
-            :release="movie.release_date"
-            :genres="movie.genre_ids"
-            :rating="movie.vote_average"
-            @click="$router.push(`/movie/${movie.id}`)"
-        ></movie-card>
+    <div class="movies" v-if="movies?.length">
+        <div class="cards">
+            <movie-card
+                v-for="movie in movies"
+                :key="movie.id"
+                :id="movie.id"
+                :poster="movie.poster_path"
+                :title="movie.title"
+                :release="movie.release_date"
+                :genres="movie.genre_ids"
+                :rating="movie.vote_average"
+                @click="$router.push(`/movie/${movie.id}`)"
+            ></movie-card>
+        </div>
         <app-pagination
             v-if="category !== 'search'"
             :current="currentPage"
@@ -21,8 +23,8 @@
             :pageCount="3"
             @change-page="changePage"
         ></app-pagination>
-        <scroll-top @scroll="scrollUp" />
     </div>
+    <scroll-top @scroll="scrollUp" />
     <not-found v-if="emptySearch" errMsg="По запросу ничего не найдено!"></not-found>
 </template>
 
@@ -31,7 +33,7 @@ import MovieCard from '@/components/MovieCard.vue';
 import AppPagination from '@/components/AppPagination';
 import NotFound from '@/components/NotFound.vue';
 import AppError from '@/components/AppError.vue';
-import VLoader from '@/components/V-Loader';
+import VLoader from '@/components/VLoader.vue';
 import ScrollTop from '@/components/ScrollTop';
 
 import { isNumeric } from '@/utils';
@@ -100,30 +102,29 @@ export default {
 };
 </script>
 <style lang="scss">
-.cards {
-    @extend .row;
-    --bs-gutter-x: 30px;
-    border-radius: 5px;
+.movies {
     background-color: $white;
-    padding-top: calc(var(--bs-gutter-x) / 2);
-    padding-bottom: calc(var(--bs-gutter-x) / 2);
-    justify-content: flex-start;
-    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: $gutter / 2;
+    padding-bottom: $gutter / 2;
 
     @include media-breakpoint-up(sm) {
-        .card {
-            @include make-col(6);
-        }
+        margin-left: $gutter / -2;
+        margin-right: $gutter / -2;
     }
     @include media-breakpoint-up(md) {
-        .card {
-            @include make-col(4);
-        }
+        border-radius: 5px;
     }
-    @include media-breakpoint-up(lg) {
-        .card {
-            @include make-col(3);
-        }
+}
+.cards {
+    @extend %row;
+    justify-content: center;
+    position: relative;
+    margin: 0;
+
+    @include media-breakpoint-up(sm) {
+        justify-content: flex-start;
     }
 }
 </style>

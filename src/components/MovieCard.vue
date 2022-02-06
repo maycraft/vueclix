@@ -4,7 +4,7 @@
             <img v-if="hasPoster" :src="posterURL" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
         </div>
-        <p className="card__title">{{ `${title} (${releaseDate})` }}</p>
+        <h4 className="card__title">{{ `${title} (${releaseDate})` }}</h4>
         <p className="card__genres">{{ movieGenres }}</p>
         <span v-if="rating" class="card__rating">{{ rating }}</span>
     </div>
@@ -82,16 +82,18 @@ export default {
 </script>
 <style lang="scss">
 .card {
-    max-width: 350px;
+    max-width: 400px;
     margin-bottom: 0.5rem;
     display: flex;
     flex-direction: column;
     cursor: pointer;
     position: relative;
+    background-color: $white;
+    @include make-col(12);
 
-    @media screen and (max-width: 576px) {
-        margin-bottom: 1rem;
-    }
+    // @media screen and (max-width: 576px) {
+    //     margin-bottom: 1rem;
+    // }
 
     &__image {
         position: relative;
@@ -108,19 +110,15 @@ export default {
         }
     }
 
-    &__title {
-        margin-bottom: 0.5rem;
-    }
-
     &__genres {
-        font-size: 0.75rem;
+        font-size: 14px;
         color: $blue;
         min-height: 1.5rem;
         margin-top: auto;
 
-        @media screen and (max-width: 576px) {
-            font-size: 1.2em;
-        }
+        // @media screen and (max-width: 576px) {
+        //     font-size: 1.2em;
+        // }
     }
 
     &__rating {
@@ -130,7 +128,6 @@ export default {
         position: absolute;
         top: 10px;
         left: 25px;
-        // right: calc(80% + 5px);
         min-width: 32px;
         text-align: center;
 
@@ -152,6 +149,12 @@ export default {
 @include media-breakpoint-up(lg) {
     .card {
         @include make-col(3);
+    }
+}
+
+@include media-breakpoint-up(xxl) {
+    .card {
+        width: 20%;
     }
 }
 </style>
