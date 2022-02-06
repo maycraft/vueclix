@@ -24,12 +24,4 @@ export default {
     position: relative;
     width: 100%;
 }
-
-// .bold {
-//     font-weight: bold;
-// }
-
-// .gy-3 {
-//     margin: 1rem 0;
-// }
 </style>
