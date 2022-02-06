@@ -61,8 +61,8 @@ export default {
             float: right;
             padding-left: 4px;
             cursor: pointer;
-            font-size: 30px;
-            line-height: 30px;
+            font-size: 1.96rem;
+            line-height: 2rem;
             color: lightgrey;
 
             &:last-child {

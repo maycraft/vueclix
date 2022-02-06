@@ -50,15 +50,28 @@ export default {
 </script>
 <style lang="scss">
 .actor {
+    @include make-col(6);
     display: flex;
     flex-direction: column;
     margin-bottom: 0.7rem;
     text-align: center;
 
+    @include media-breakpoint-up(sm) {
+        @include make-col(4);
+    }
+
+    @include media-breakpoint-up(md) {
+        @include make-col(3);
+    }
+
+    @include media-breakpoint-up(lg) {
+        @include make-col(2);
+    }
+
     &__avatar {
-        @media screen and (max-width: 576px) {
-            padding: 0 var(--bs-gutter-x);
-        }
+        // @media screen and (max-width: 576px) {
+        //     padding: 0 var(--bs-gutter-x);
+        // }
         &_slug {
             background: #e6e6e6;
             max-width: 300px;
@@ -76,7 +89,7 @@ export default {
     }
 
     &__character {
-        font-size: 0.75rem;
+        font-size: 13px;
         color: #9e9e9e;
     }
 }

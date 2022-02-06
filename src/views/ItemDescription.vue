@@ -3,95 +3,105 @@
     <not-found v-if="error" :errMsg="error"></not-found>
     <main class="movie" v-if="item">
         <h1 class="movie__title">{{ `${item.title} (${releaseYear})` }}</h1>
-        <h3 class="movie__original-title">{{ item.original_title }}</h3>
-        <h5 class="movie__tagline">{{ item.tagline }}</h5>
-        <div class="movie__poster">
-            <div v-if="imageURL">
-                <img :src="imageURL" :alt="item.title" v-show="showImage" @load="loadImg" />
-                <v-loader
-                    v-if="!showImage"
-                    type="spinner"
-                    :isFullPage="false"
-                    bgColor="#fff"
-                ></v-loader>
-            </div>
-            <img v-else src="@/assets/img/no_poster.jpg" :alt="item.title" />
-            <div class="movie__rating rating">
-                <div class="rating__common">
-                    <p>
-                        Рейтинг <a class="rating__link" href="https://www.themoviedb.org/">TMDB</a>:
-                    </p>
-                    <span class="rating__current">{{ item.rating }}/10</span>
+        <div class="movie__wrapper">
+            <div class="movie__poster">
+                <div v-if="imageURL">
+                    <img :src="imageURL" :alt="item.title" v-show="showImage" @load="loadImg" />
+                    <v-loader
+                        v-if="!showImage"
+                        type="spinner"
+                        :isFullPage="false"
+                        bgColor="#fff"
+                    ></v-loader>
                 </div>
-                <v-rating
-                    :selected="selected"
-                    :stars="stars"
-                    :error="ratingError"
-                    @select="onSelect"
-                />
+                <img v-else src="@/assets/img/no_poster.jpg" :alt="item.title" />
+                <div class="movie__rating rating">
+                    <div class="rating__common">
+                        <p>
+                            Рейтинг
+                            <a class="rating__link" href="https://www.themoviedb.org/">TMDB</a>:
+                        </p>
+                        <span class="rating__current">{{ item.rating }}/10</span>
+                    </div>
+                    <v-rating
+                        :selected="selected"
+                        :stars="stars"
+                        :error="ratingError"
+                        @select="onSelect"
+                    />
+                </div>
+            </div>
+            <div class="movie__info">
+                <p v-if="item.original_title">
+                    <b>Оригинальное название: </b>
+                    {{ item.original_title }}
+                </p>
+                <p v-if="item.tagline">
+                    <b>Слоган: </b>
+                    {{ item.tagline }}
+                </p>
+                <p v-if="genres">
+                    <b>Жанр: </b>
+                    {{ genres }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Продюсер: </b>
+                    {{ mapCrewItem(item.crew, 'Production') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Режиссёр: </b>
+                    {{ mapCrewItem(item.crew, 'Directing') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Сценарий: </b>
+                    {{ mapCrewItem(item.crew, 'Writing') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Оператор: </b>
+                    {{ mapCrewItem(item.crew, 'Camera') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Композитор: </b>
+                    {{ mapCrewItem(item.crew, 'Sound') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Художник: </b>
+                    {{ mapCrewItem(item.crew, 'Art') }}
+                </p>
+                <p v-if="item.crew">
+                    <b>Монтаж: </b>
+                    {{ mapCrewItem(item.crew, 'Editing') }}
+                </p>
+                <p v-if="item.release_date">
+                    <b>Дата выхода: </b>
+                    {{ item.release_date }}
+                </p>
+                <p v-if="item.homepage">
+                    <b>Сайт: </b>
+                    <a class="movie__link" :href="item.homepage" target="_blank" rel="noreferrer">
+                        {{ item.homepage }}
+                    </a>
+                </p>
+                <p v-if="countries">
+                    <b>Страна: </b>
+                    {{ countries }}
+                </p>
+                <p v-if="companies">
+                    <b>Студия: </b>
+                    {{ companies }}
+                </p>
             </div>
         </div>
-        <div class="movie__info">
-            <p>
-                <span class="bold">Жанр: </span>
-                {{ genres }}
-            </p>
-            <p>
-                <span class="bold">Продюсер: </span>
-                {{ mapCrewItem(item.crew, 'Production') }}
-            </p>
-            <p>
-                <span class="bold">Режиссёр: </span>
-                {{ mapCrewItem(item.crew, 'Directing') }}
-            </p>
-            <p>
-                <span class="bold">Сценарий: </span>
-                {{ mapCrewItem(item.crew, 'Writing') }}
-            </p>
-            <p>
-                <span class="bold">Оператор: </span>
-                {{ mapCrewItem(item.crew, 'Camera') }}
-            </p>
-            <p>
-                <span class="bold">Композитор: </span>
-                {{ mapCrewItem(item.crew, 'Sound') }}
-            </p>
-            <p>
-                <span class="bold">Художник: </span>
-                {{ mapCrewItem(item.crew, 'Art') }}
-            </p>
-            <p>
-                <span class="bold">Монтаж: </span>
-                {{ mapCrewItem(item.crew, 'Editing') }}
-            </p>
-            <p>
-                <span class="bold">Дата выхода: </span>
-                {{ item.release_date }}
-            </p>
-            <p>
-                <span class="bold">Сайт: </span>
-                <a class="movie__link" :href="item.homepage" target="_blank" rel="noreferrer">
-                    {{ item.homepage }}
-                </a>
-            </p>
-            <p>
-                <span class="bold">Страна: </span>
-                {{ countries }}
-            </p>
-            <p>
-                <span class="bold">Студия: </span>
-                {{ companies }}
-            </p>
-        </div>
+
         <div class="movie__overview">
-            <h2 class="bold gy-3">Описание:</h2>
+            <h3><b>Описание:</b></h3>
             <p>{{ item.overview }}</p>
         </div>
         <div>
-            <h2 class="bold gy-3">Трейлер:</h2>
+            <h3><b> Трейлер:</b></h3>
             <template v-if="item.videos.length">
                 <div class="trailer" :key="video.key" v-for="video in item.videos">
-                    <h3 class="trailer__title">{{ video.name }}</h3>
+                    <h4 class="trailer__title">{{ video.name }}</h4>
                     <v-youtube :videoKey="video.key"></v-youtube>
                 </div>
             </template>
@@ -105,7 +115,7 @@
             >
                 Трейлер отсутствует
             </p>
-            <h2 class="bold gy-3">В главных ролях:</h2>
+            <h3><b>В главных ролях:</b></h3>
             <div class="movie__actors">
                 <actor-card
                     :key="actor.id"
@@ -124,8 +134,8 @@
 <script>
 import ActorCard from '@/components/ActorCard.vue';
 import NotFound from '@/components/NotFound.vue';
-import VLoader from '@/components/V-Loader.vue';
-import VYoutube from '@/components/V-Youtube.vue';
+import VLoader from '@/components/VLoader.vue';
+import VYoutube from '@/components/VYoutube.vue';
 import VRating from '@/components/VRating.vue';
 
 import { mapGetters, mapActions } from 'vuex';
@@ -210,26 +220,20 @@ export default {
 </script>
 <style lang="scss">
 .movie {
-    @extend .row;
     background: $white;
-    border-radius: 4px;
-    padding: 2rem;
+    padding: 2.5rem 1rem 0;
     position: relative;
     // background-image: url(https://image.tmdb.org/t/p/original/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg);
     // background-size: cover;
     // background-repeat: no-repeat;
     // background: url() top left contain no-repeat;
-    @media screen and (max-width: 576px) {
-        padding: 3rem 0.2rem 0;
+    @include media-breakpoint-up(sm) {
+        border-radius: 4px;
     }
 
-    &__title {
-        max-width: 70%;
-        margin: auto;
-
-        @media screen and (max-width: 576px) {
-            max-width: 100%;
-        }
+    &__wrapper {
+        @extend %row;
+        padding-top: 0.5rem;
     }
 
     &__original-title {
@@ -247,24 +251,44 @@ export default {
 
     &__poster {
         position: relative;
-        & img {
-            width: 100%;
+        @include make-col();
+
+        @include media-breakpoint-up(sm) {
+            @include make-col(6);
+        }
+
+        @include media-breakpoint-up(md) {
+            @include make-col(5);
+        }
+
+        @include media-breakpoint-up(lg) {
+            @include make-col(4);
         }
     }
 
     &__rating {
-        padding: 1rem 1rem 0;
+        padding-top: 1rem;
         height: 80px;
     }
 
     &__info {
+        @include make-col();
+        display: none;
+
+        @include media-breakpoint-up(sm) {
+            display: block;
+            @include make-col(6);
+        }
+
+        @include media-breakpoint-up(md) {
+            @include make-col(7);
+        }
+
+        @include media-breakpoint-up(lg) {
+            @include make-col(8);
+        }
         p {
             margin-bottom: 1rem;
-            @media screen and (max-width: 576px) {
-                &:first-child {
-                    margin-top: 1rem;
-                }
-            }
 
             &:last-child {
                 margin-bottom: 0;
@@ -277,48 +301,14 @@ export default {
     }
 
     &__actors {
-        @extend .row;
-    }
-
-    @include media-breakpoint-up(sm) {
-        &__overview {
-            @include make-col(12);
-        }
-    }
-    @include media-breakpoint-up(md) {
-        &__poster {
-            @include make-col(4);
-        }
-        &__info {
-            @include make-col(7);
-        }
-        &__overview {
-            @include make-col(11);
-        }
+        @extend %row;
     }
 }
 
 .trailer {
     &__title {
         text-align: center;
-        padding: 1rem 0;
-    }
-}
-
-@include media-breakpoint-up(sm) {
-    .actor {
-        @include make-col(6);
-    }
-}
-@include media-breakpoint-up(md) {
-    .actor {
-        @include make-col(3);
-    }
-}
-
-@include media-breakpoint-up(lg) {
-    .actor {
-        @include make-col(2);
+        padding: 0.5rem 0;
     }
 }
 
@@ -352,7 +342,7 @@ export default {
 
     &__common {
         display: flex;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         height: 30px;
     }
     &__link {
