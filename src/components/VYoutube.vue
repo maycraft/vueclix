@@ -20,7 +20,7 @@
     </div>
 </template>
 <script>
-import VLoader from '@/components/V-Loader';
+import VLoader from '@/components/VLoader';
 export default {
     name: 'v-youtube',
     props: {
@@ -66,6 +66,5 @@ export default {
 
 .video {
     max-width: 700px;
-    margin-bottom: 1rem;
 }
 </style>
