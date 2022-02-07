@@ -327,7 +327,6 @@ export default {
 .rating {
     &__current {
         display: flex;
-        align-items: center;
         margin-left: 10px;
         margin-bottom: 10px;
 
@@ -335,7 +334,7 @@ export default {
             content: '★';
             color: gold;
             font-size: 1.96rem;
-            line-height: 2rem;
+            line-height: 1rem;
             margin-right: 5px;
         }
     }
