@@ -334,8 +334,8 @@ export default {
         &::before {
             content: '★';
             color: gold;
-            font-size: 30px;
-            line-height: 25px;
+            font-size: 1.96rem;
+            line-height: 2rem;
             margin-right: 5px;
         }
     }
