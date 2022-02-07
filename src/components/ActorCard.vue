@@ -69,22 +69,23 @@ export default {
     }
 
     &__avatar {
-        // @media screen and (max-width: 576px) {
-        //     padding: 0 var(--bs-gutter-x);
-        // }
+        margin-bottom: 5px;
         &_slug {
             background: #e6e6e6;
-            max-width: 300px;
-        }
+            position: relative;
+            padding: 75% 0%;
+            overflow: hidden;
 
-        svg,
-        img {
-            max-width: 100%;
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                object-fit: cover;
+            }
         }
     }
 
     &__name {
-        margin-top: auto;
         color: #424242;
     }
 
