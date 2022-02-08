@@ -1,8 +1,8 @@
 <template>
-    <div class="actor" :key="id">
-        <figure class="actor__avatar">
+    <div class="actor-card" :key="id" @click="$emit('detail')">
+        <figure class="actor-card__avatar">
             <img :src="imageURL" :alt="name" v-if="imagePath" />
-            <div class="actor__avatar_slug" v-else>
+            <div class="actor-card__avatar_slug" v-else>
                 <img
                     v-if="gender === 1"
                     src="@/assets/img/no_female_image.svg"
@@ -11,8 +11,8 @@
                 <img v-else src="@/assets/img/no_male_image.svg" alt="male avatar" />
             </div>
         </figure>
-        <p class="actor__name">{{ name }}</p>
-        <p class="actor__character">{{ character }}</p>
+        <p class="actor-card__name">{{ name }}</p>
+        <p class="actor-card__character">{{ character }}</p>
     </div>
 </template>
 <script>
@@ -49,12 +49,13 @@ export default {
 };
 </script>
 <style lang="scss">
-.actor {
+.actor-card {
     @include make-col(6);
     display: flex;
     flex-direction: column;
     margin-bottom: 0.7rem;
     text-align: center;
+    cursor: pointer;
 
     @include media-breakpoint-up(sm) {
         @include make-col(4);
@@ -70,6 +71,8 @@ export default {
 
     &__avatar {
         margin-bottom: 5px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
         &_slug {
             background: #e6e6e6;
             position: relative;
