@@ -264,6 +264,10 @@ export default {
         @include media-breakpoint-up(lg) {
             @include make-col(4);
         }
+
+        @include media-breakpoint-up(lg) {
+            @include make-col(3);
+        }
     }
 
     &__rating {
@@ -287,6 +291,7 @@ export default {
         @include media-breakpoint-up(lg) {
             @include make-col(8);
         }
+
         p {
             margin-bottom: 1rem;
 
