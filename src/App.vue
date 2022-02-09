@@ -24,4 +24,16 @@ export default {
     position: relative;
     width: 100%;
 }
+.backward {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: 2rem;
+    top: 0.5rem;
+    color: $blue;
+}
 </style>
