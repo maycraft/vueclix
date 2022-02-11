@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import { getGenres, getNewMovies, getSearchMovies, getUpcomingMovies } from '@/api';
-import { getMovieById } from '../api';
+import { getMovieById, getActorById } from '../api';
+import { objectSort } from '@/utils';
 export default createStore({
     state: {
         genres: [],
@@ -11,6 +12,7 @@ export default createStore({
         movie: null,
         error: null,
         searchQuery: '',
+        actor: null,
     },
     getters: {
         genres: state => state.genres,
@@ -21,6 +23,7 @@ export default createStore({
         loading: state => state.loading,
         error: state => state.error,
         searchQuery: state => state.searchQuery,
+        actor: state => state.actor,
     },
     mutations: {
         setGenres(state, genres) {
@@ -46,6 +49,9 @@ export default createStore({
         },
         setSearchQuery(state, query) {
             state.searchQuery = query;
+        },
+        setActor(state, actorObj) {
+            state.actor = actorObj;
         },
     },
     actions: {
@@ -140,6 +146,46 @@ export default createStore({
         },
         setSearchQuery({ commit }, query) {
             commit('setSearchQuery', query);
+        },
+        async fetchActorByID({ commit }, id) {
+            commit('setActor', null);
+            const {
+                name,
+                biography,
+                birthday,
+                deathday,
+                place_of_birth,
+                profile_path,
+                movie_credits,
+            } = await getActorById(id);
+            const actor = {
+                id,
+                name,
+                biography: biography && biography.split('\n\n'),
+                birthday: new Date(birthday).toLocaleString('ru', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                }),
+                deathday: deathday
+                    ? new Date(deathday).toLocaleString('ru', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                      })
+                    : null,
+                place: place_of_birth,
+                poster: profile_path,
+                movies: movie_credits.cast
+                    .map(movie => ({
+                        id: movie.id,
+                        title: movie.title,
+                        released: new Date(movie.release_date).getFullYear(),
+                    }))
+                    .filter(movie => movie.released)
+                    .sort(objectSort('released')),
+            };
+            commit('setActor', actor);
         },
     },
     modules: {},

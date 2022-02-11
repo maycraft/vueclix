@@ -125,6 +125,7 @@
                     :character="actor.character"
                     :gender="actor.gender"
                     v-for="actor in item.cast"
+                    @detail="$router.push({ name: 'actor', params: { id: actor.id } })"
                 ></actor-card>
             </div>
         </div>
@@ -317,18 +318,6 @@ export default {
     }
 }
 
-.backward {
-    width: 2rem;
-    height: 2rem;
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    position: absolute;
-    right: 2rem;
-    top: 0.5rem;
-    color: $blue;
-}
 .rating {
     &__current {
         display: flex;

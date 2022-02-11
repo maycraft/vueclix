@@ -6,6 +6,8 @@ const API_CATEGORY_MOVIE = '/movie';
 
 const API_CATEGORY_GENRE = '/genre/movie/list';
 
+const API_CATEGORY_PERSON = '/person';
+
 const API_TYPE_AUTH = '/authentication/guest_session/new';
 
 const API_TYPE_MOVIE = '/movie';
@@ -25,7 +27,7 @@ const API_QUERY_PARAM = '&query=';
 
 export const API_CONSTANT = API_KEY + API_REGION_RU;
 
-export const API_URL_MOVIE = API_URL + API_TYPE_MOVIE;
+export const API_URL_MOVIE = API_URL + API_CATEGORY_MOVIE;
 
 export const API_URL_UPCOMING = API_URL_MOVIE + API_TYPE_UPCOMING + API_CONSTANT + API_PAGE_PARAM;
 
@@ -40,6 +42,8 @@ export const API_URL_SEARCH =
     API_URL + API_TYPE_SEARCH + API_CATEGORY_MOVIE + API_CONSTANT + API_QUERY_PARAM;
 
 export const API_URL_RATING = API_URL + API_TYPE_MOVIE;
+
+export const API_URL_PERSON = API_URL + API_CATEGORY_PERSON;
 
 export const POSTER_URL_SM = 'https://image.tmdb.org/t/p/w300';
 

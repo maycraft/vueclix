@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Movies from '@/views/Movies.vue';
 import ItemDescription from '@/views/ItemDescription.vue';
 import NotFound from '@/views/NotFound.vue';
-
+import ActorDetails from '@/views/ActorDetails.vue';
 const routes = [
     {
         path: '/',
@@ -16,8 +16,13 @@ const routes = [
     },
     {
         path: '/movie/:id',
-        name: 'Movie',
+        name: 'movie',
         component: ItemDescription,
+    },
+    {
+        path: '/actor/:id',
+        name: 'actor',
+        component: ActorDetails,
     },
     {
         path: '/:pathMatch(.*)*',

@@ -10,6 +10,7 @@ import {
     API_URL_AUTH,
     API_URL_RATING,
     API_KEY,
+    API_URL_PERSON,
 } from '../constants';
 
 function handleError(err) {
@@ -70,4 +71,8 @@ export const postRating = async (movieID, rating, sessionID) => {
             console.error(err.message);
         }
     }
+};
+
+export const getActorById = async id => {
+    return await getData(`${API_URL_PERSON}/${id}${API_CONSTANT}&append_to_response=movie_credits`);
 };
