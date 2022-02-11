@@ -106,12 +106,12 @@ export default {
     background-color: $white;
     margin-left: auto;
     margin-right: auto;
-    padding-top: $gutter / 2;
-    padding-bottom: $gutter / 2;
+    padding-top: calc($gutter / 2);
+    padding-bottom: calc($gutter / 2);
 
     @include media-breakpoint-up(sm) {
-        margin-left: $gutter / -2;
-        margin-right: $gutter / -2;
+        margin-left: calc($gutter / -2);
+        margin-right: calc($gutter / -2);
     }
     @include media-breakpoint-up(md) {
         border-radius: 5px;
