@@ -64,6 +64,7 @@ export default {
     bottom: 15%;
     padding: 0;
     background: $blue;
+    z-index: 1000;
 }
 
 .scroll-enter-active,
