@@ -4,8 +4,8 @@
             <img v-if="hasPoster" :src="poster" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
         </div>
-        <h5 className="card__title">{{ title }}</h5>
-        <p className="card__genres">{{ movieGenres }}</p>
+        <h5 className="card__title ellipsis">{{ title }}</h5>
+        <p className="card__genres ellipsis">{{ movieGenres }}</p>
         <span v-if="floatRating" class="card__rating">{{ floatRating }}</span>
     </div>
     <card-loader v-else></card-loader>

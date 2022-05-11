@@ -126,4 +126,10 @@ export default {
         justify-content: flex-start;
     }
 }
+.ellipsis {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 </style>
