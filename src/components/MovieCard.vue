@@ -82,6 +82,7 @@ export default ({
     cursor: pointer;
     position: relative;
     background-color: $white;
+    transition: transform 0.35s ease;
     @include make-col(12);
 
     // @media screen and (max-width: 576px) {
@@ -127,6 +128,18 @@ export default ({
         @media screen and (max-width: 576px) {
             // left: 40px;
         }
+    }
+    &:hover {
+        transform: scale(1.05);
+        z-index: 10;
+        padding: 0.9375rem;
+        margin-top: -0.9375rem;
+        margin-bottom: -0.9375rem;
+        box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+    }
+
+    &:hover &__rating {
+        top: 25px;
     }
 }
 @include media-breakpoint-up(sm) {
