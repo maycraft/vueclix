@@ -1,21 +1,20 @@
 <template>
     <div className="card" @click="handleClick" v-if="isLoaded">
         <div className="card__image">
-            <img v-if="hasPoster" :src="posterURL" :alt="title" />
+            <img v-if="hasPoster" :src="poster" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
         </div>
-        <h4 className="card__title">{{ `${title} (${releaseDate})` }}</h4>
+        <h5 className="card__title">{{ title }}</h5>
         <p className="card__genres">{{ movieGenres }}</p>
-        <span v-if="rating" class="card__rating">{{ rating }}</span>
+        <span v-if="floatRating" class="card__rating">{{ floatRating }}</span>
     </div>
     <card-loader v-else></card-loader>
 </template>
 <script>
 import CardLoader from '@/components/CardLoader.vue';
-import { POSTER_URL_MD } from '@/constants';
-import { getReleaseDate, getMovieGenres } from '@/utils';
+import { getMovieGenres } from '@/utils';
 
-export default {
+export default ({
     props: {
         id: {
             type: Number,
@@ -28,15 +27,12 @@ export default {
         poster: {
             type: String,
         },
-        release: {
-            type: String,
-        },
         genres: {
             type: Array,
             required: true,
         },
         rating: {
-            type: Number,
+            type: String,
             required: true,
         },
     },
@@ -46,7 +42,7 @@ export default {
     created() {
         if (this.poster) {
             const img = new Image();
-            img.src = POSTER_URL_MD + this.poster;
+            img.src = this.poster;
             img.onload = () => {
                 this.setIsLoaded(true);
             };
@@ -68,17 +64,14 @@ export default {
         hasPoster() {
             return !!this.poster;
         },
-        posterURL() {
-            return POSTER_URL_MD + this.poster;
-        },
-        releaseDate() {
-            return getReleaseDate(this.release);
+        floatRating() {
+            return this.rating <= 10 ? this.rating : '';
         },
         movieGenres() {
             return getMovieGenres(this.genres);
         },
     },
-};
+});
 </script>
 <style lang="scss">
 .card {
@@ -111,7 +104,7 @@ export default {
     }
 
     &__genres {
-        font-size: 14px;
+        font-size: 13px;
         color: $blue;
         min-height: 1.5rem;
         margin-top: auto;

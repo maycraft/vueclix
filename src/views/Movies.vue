@@ -6,13 +6,12 @@
         <div class="cards">
             <movie-card
                 v-for="movie in movies"
-                :key="movie.id"
-                :id="movie.id"
-                :poster="movie.poster_path"
-                :title="movie.title"
-                :release="movie.release_date"
-                :genres="movie.genre_ids"
-                :rating="movie.vote_average"
+                :key="movie.filmId"
+                :id="movie.filmId"
+                :poster="movie.posterUrl"
+                :title="movie.nameRu"
+                :genres="movie.genres"
+                :rating="movie.rating"
                 @click="$router.push(`/movie/${movie.id}`)"
             ></movie-card>
         </div>
