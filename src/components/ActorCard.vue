@@ -1,7 +1,7 @@
 <template>
     <div class="actor-card" :key="id" @click="$emit('detail')">
         <figure class="actor-card__avatar">
-            <img :src="imageURL" :alt="name" v-if="imagePath" />
+            <img :src="imagePath" :alt="name" v-if="imagePath" />
             <div class="actor-card__avatar_slug" v-else>
                 <img
                     v-if="gender === 1"
@@ -11,12 +11,13 @@
                 <img v-else src="@/assets/img/no_male_image.svg" alt="male avatar" />
             </div>
         </figure>
-        <p class="actor-card__name">{{ name }}</p>
-        <p class="actor-card__character">{{ character }}</p>
+        <div class="actor-card__wrapper">
+            <p class="actor-card__name ellipsis">{{ name }}</p>
+            <p class="actor-card__character ellipsis">{{ character }}</p>
+        </div>
     </div>
 </template>
 <script>
-import { POSTER_URL_SM } from '@/constants';
 export default {
     name: 'ActorCard',
     props: {
@@ -41,11 +42,11 @@ export default {
             required: true,
         },
     },
-    computed: {
-        imageURL() {
-            return POSTER_URL_SM + this.imagePath;
-        },
-    },
+    // computed: {
+    //     imageURL() {
+    //         return POSTER_URL_SM + this.imagePath;
+    //     },
+    // },
 };
 </script>
 <style lang="scss">
@@ -69,10 +70,16 @@ export default {
         @include make-col(2);
     }
 
+    &__wrapper {
+        height: 20%;
+    }
+
     &__avatar {
         margin-bottom: 5px;
         border-radius: 5px 5px 0 0;
         overflow: hidden;
+        height: 100%;
+
         &_slug {
             background: #e6e6e6;
             position: relative;
