@@ -12,7 +12,7 @@
                 :title="movie.nameRu"
                 :genres="movie.genres"
                 :rating="movie.rating"
-                @click="$router.push(`/movie/${movie.id}`)"
+                @click="$router.push(`/movie/${movie.filmId}`)"
             ></movie-card>
         </div>
         <app-pagination
