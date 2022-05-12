@@ -2,7 +2,7 @@
     <v-loader v-if="loading"></v-loader>
     <not-found v-if="error" :errMsg="error"></not-found>
     <main class="movie" v-if="item">
-        <h1 class="movie__title">{{ `${item.title} (${releaseYear})` }}</h1>
+        <h1 class="movie__title">{{ `${item.title} (${item.year})` }}</h1>
         <div class="movie__wrapper">
             <div class="movie__poster">
                 <div v-if="imageURL">
@@ -19,16 +19,10 @@
                     <div class="rating__common">
                         <p>
                             Рейтинг
-                            <a class="rating__link" href="https://www.themoviedb.org/">TMDB</a>:
+                            <a class="rating__link" href="https://www.kinopoisk.ru/">KinoPoisk</a>:
                         </p>
                         <span class="rating__current">{{ item.rating }}/10</span>
                     </div>
-                    <v-rating
-                        :selected="selected"
-                        :stars="stars"
-                        :error="ratingError"
-                        @select="onSelect"
-                    />
                 </div>
             </div>
             <div class="movie__info">
@@ -36,73 +30,59 @@
                     <b>Оригинальное название: </b>
                     {{ item.original_title }}
                 </p>
-                <p v-if="item.tagline">
+                <p v-if="item.slogan">
                     <b>Слоган: </b>
-                    {{ item.tagline }}
+                    {{ item.slogan }}
                 </p>
                 <p v-if="genres">
                     <b>Жанр: </b>
                     {{ genres }}
                 </p>
-                <p v-if="item.crew">
-                    <b>Продюсер: </b>
-                    {{ mapCrewItem(item.crew, 'Production') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Режиссёр: </b>
-                    {{ mapCrewItem(item.crew, 'Directing') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Сценарий: </b>
-                    {{ mapCrewItem(item.crew, 'Writing') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Оператор: </b>
-                    {{ mapCrewItem(item.crew, 'Camera') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Композитор: </b>
-                    {{ mapCrewItem(item.crew, 'Sound') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Художник: </b>
-                    {{ mapCrewItem(item.crew, 'Art') }}
-                </p>
-                <p v-if="item.crew">
-                    <b>Монтаж: </b>
-                    {{ mapCrewItem(item.crew, 'Editing') }}
-                </p>
-                <p v-if="item.release_date">
-                    <b>Дата выхода: </b>
-                    {{ item.release_date }}
-                </p>
-                <p v-if="item.homepage">
-                    <b>Сайт: </b>
-                    <a class="movie__link" :href="item.homepage" target="_blank" rel="noreferrer">
-                        {{ item.homepage }}
-                    </a>
-                </p>
                 <p v-if="countries">
                     <b>Страна: </b>
                     {{ countries }}
                 </p>
-                <p v-if="companies">
-                    <b>Студия: </b>
-                    {{ companies }}
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Режессёр: </b>
+                    {{ mapCrewItem(item.crew, 'DIRECTOR') }}
                 </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Продюсер: </b>
+                    {{ mapCrewItem(item.crew, 'PRODUCER') }}
+                </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Сценарий: </b>
+                    {{ mapCrewItem(item.crew, 'WRITER') }}
+                </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Оператор: </b>
+                    {{ mapCrewItem(item.crew, 'OPERATOR') }}
+                </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Композитор: </b>
+                    {{ mapCrewItem(item.crew, 'COMPOSER') }}
+                </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Художник: </b>
+                    {{ mapCrewItem(item.crew, 'DESIGN') }}
+                </p>
+                <p v-if="item.crew" class="ellipsis">
+                    <b>Монтаж: </b>
+                    {{ mapCrewItem(item.crew, 'EDITOR') }}
+                </p> 
             </div>
         </div>
 
         <div class="movie__overview">
             <h3><b>Описание:</b></h3>
-            <p>{{ item.overview }}</p>
+            <p>{{ item.description }}</p>
         </div>
         <div>
             <h3><b> Трейлер:</b></h3>
             <template v-if="item.videos.length">
-                <div class="trailer" :key="video.key" v-for="video in item.videos">
-                    <h4 class="trailer__title">{{ video.name }}</h4>
-                    <v-youtube :videoKey="video.key"></v-youtube>
+                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
+                    <h4 class="trailer__title">{{ video.title }}</h4>
+                    <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
             </template>
             <p
@@ -118,13 +98,13 @@
             <h3><b>В главных ролях:</b></h3>
             <div class="movie__actors">
                 <actor-card
-                    :key="actor.id"
-                    :id="actor.id"
-                    :image-path="actor.profile_path"
-                    :name="actor.name"
-                    :character="actor.character"
-                    :gender="actor.gender"
-                    v-for="actor in item.cast"
+                    :key="actor.staffId"
+                    :id="actor.staffId"
+                    :image-path="actor.posterUrl"
+                    :name="actor.nameRu"
+                    :character="actor.description"
+                    :gender="1"
+                    v-for="actor in item.actors"
                     @detail="$router.push({ name: 'actor', params: { id: actor.id } })"
                 ></actor-card>
             </div>
@@ -137,32 +117,19 @@ import ActorCard from '@/components/ActorCard.vue';
 import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/VLoader.vue';
 import VYoutube from '@/components/VYoutube.vue';
-import VRating from '@/components/VRating.vue';
 
 import { mapGetters, mapActions } from 'vuex';
-import { POSTER_URL_SM } from '@/constants';
-import { mapCrewItem } from '@/utils';
-import { isNumeric } from '@/utils';
-import { postRating, generateSessionID } from '@/api';
+import { isNumeric, getMovieGenres, getMovieCountries, mapCrewItem } from '@/utils';
 
 export default {
     created() {
         this.fetchMovieByID(isNumeric(this.id));
-        if (!sessionStorage.getItem('sessionID')) {
-            generateSessionID().then(sessionID => {
-                sessionStorage.setItem('sessionID', JSON.stringify(sessionID));
-            });
-        }
-        if (!localStorage.getItem('ratings')) localStorage.setItem('ratings', JSON.stringify([]));
-        this.ratings = JSON.parse(localStorage.getItem('ratings'));
-        this.findRating();
     },
     components: {
         ActorCard,
         VLoader,
         NotFound,
         VYoutube,
-        VRating,
     },
     name: 'ItemDescription',
     data() {
@@ -178,16 +145,13 @@ export default {
     computed: {
         ...mapGetters({ item: 'movie', loading: 'loading', error: 'error' }),
         imageURL() {
-            return this.item.poster_path ? POSTER_URL_SM + this.item.poster_path : null;
-        },
-        releaseYear() {
-            return this.item.release_date.split('-')[0];
+            return this.item.posterUrl ? this.item.posterUrl : null;
         },
         genres() {
-            return this.item.genres.map(genre => genre.name).join(', ');
+            return getMovieGenres(this.item.genres);
         },
         countries() {
-            return this.item.production_countries.map(country => country.name).join(', ');
+            return getMovieCountries(this.item.countries);
         },
         companies() {
             return this.item.production_companies.map(item => item.name).join(', ');
@@ -195,26 +159,15 @@ export default {
         sessionID() {
             return JSON.parse(sessionStorage.getItem('sessionID')) || '';
         },
+        // backgroundImage() {
+        //     return `background-image: url(${this.item.coverUrl})`
+        // }
     },
     methods: {
         ...mapActions(['fetchMovieByID']),
         mapCrewItem,
         loadImg() {
             this.showImage = true;
-        },
-        findRating() {
-            this.selected = this.ratings.find(item => item.id == this.id)?.rating;
-        },
-        onSelect(rating) {
-            postRating(this.id, rating, this.sessionID).then(success => {
-                if (success) {
-                    this.selected = rating;
-                    this.ratings.push({ id: this.id, rating });
-                    localStorage.setItem('ratings', JSON.stringify(this.ratings));
-                } else {
-                    this.ratingError = true;
-                }
-            });
         },
     },
 };
@@ -224,10 +177,9 @@ export default {
     background: $white;
     padding: 2.5rem 1rem 0;
     position: relative;
-    // background-image: url(https://image.tmdb.org/t/p/original/9yBVqNruk6Ykrwc32qrK2TIE5xw.jpg);
-    // background-size: cover;
-    // background-repeat: no-repeat;
-    // background: url() top left contain no-repeat;
+    margin: 0 -1rem;
+    background-size: cover;
+    background-repeat: no-repeat;
     @include media-breakpoint-up(sm) {
         border-radius: 4px;
     }
@@ -266,7 +218,7 @@ export default {
             @include make-col(4);
         }
 
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(xxl) {
             @include make-col(3);
         }
     }
@@ -294,7 +246,7 @@ export default {
         }
 
         p {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
 
             &:last-child {
                 margin-bottom: 0;
