@@ -93,6 +93,7 @@
 
 <script>
 import _ from 'lodash';
+import { mapActions } from 'vuex';
 export default {
     name: 'navbar-menu',
     props: {
@@ -119,12 +120,17 @@ export default {
             showMenu: false,
         };
     },
+
     methods: {
+        ...mapActions(['setSearchQuery']),
         checkSize() {
             this.showMenu = window.innerWidth >= 768;
         },
         toggleShow() {
             this.showSearch = !this.showSearch;
+            if(!this.showSearch) {
+                this.setSearchQuery('');
+            } 
         },
         onInput: _.debounce(function (event) {
             this.$emit('onQuery', event.target.value);
