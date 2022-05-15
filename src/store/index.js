@@ -1,10 +1,9 @@
 import { createStore } from 'vuex';
-import { getGenres, getNewMovies, getSearchMovies, getUpcomingMovies } from '@/api';
+// import { getNewMovies, getSearchMovies } from '@/api';
+import { getSearchMovies, } from '@/api';
 import { getMovieById, getActorById } from '../api';
-import { objectSort } from '@/utils';
 export default createStore({
     state: {
-        genres: [],
         page: 1,
         total: 1,
         movies: [],
@@ -15,7 +14,6 @@ export default createStore({
         actor: null,
     },
     getters: {
-        genres: state => state.genres,
         movies: state => state.movies,
         currentPage: state => state.page,
         totalPages: state => state.total,
@@ -26,9 +24,6 @@ export default createStore({
         actor: state => state.actor,
     },
     mutations: {
-        setGenres(state, genres) {
-            state.genres = genres;
-        },
         setMovies(state, movies) {
             state.movies = movies;
         },
@@ -61,38 +56,33 @@ export default createStore({
         setLoading({ commit }, isLoaded) {
             commit('setLoading', isLoaded);
         },
-        async getGenres({ commit }) {
-            try {
-                const genres = await getGenres();
-                commit('setGenres', genres);
-            } catch (err) {
-                commit('setError', err.message);
-            }
-        },
         async getMovies({ commit }, payload) {
             const { category, page = 1, query = '' } = payload;
             let fetchMovies = '';
             commit('setMovies', null);
             switch (category) {
-                case 'now_playing':
-                    fetchMovies = getNewMovies;
-                    break;
-                case 'upcoming':
-                    fetchMovies = getUpcomingMovies;
-                    break;
+                // case 'now_playing':
+                //     fetchMovies = getNewMovies;
+                //     break;
+                // case 'upcoming':
+                //     fetchMovies = getUpcomingMovies;
+                //     break;
                 case 'search':
                     fetchMovies = getSearchMovies;
                     break;
             }
             try {
                 if (category === 'search') {
-                    const { results } = await getSearchMovies(query);
-                    commit('setMovies', results);
+                    const { films } = await getSearchMovies(query);
+                    commit('setMovies', films);
                 } else {
-                    const { total_pages, results } = await fetchMovies(page);
+                    // const data = await fetchMovies(page);
+                    fetchMovies = require('@/data.json');
+                    const { pagesCount, films } = fetchMovies;
+                    // const { pagesCount, films } = await fetchMovies(page);
                     commit('setPage', page);
-                    commit('setTotalPages', total_pages);
-                    commit('setMovies', results);
+                    commit('setTotalPages', pagesCount);
+                    commit('setMovies', films);
                 }
             } catch (err) {
                 if (err.message === 'fetchMovies is not a function') {
@@ -108,39 +98,52 @@ export default createStore({
         },
         async fetchMovieByID({ commit }, id) {
             commit('setMovie', null);
+            const movieArr = await getMovieById(id);
+            // console.log('data', movieArr);
+            // const movieArr = require('@/movie-data.json');
             const {
-                title,
-                original_title,
-                release_date,
-                tagline,
-                poster_path,
+                nameRu,
+                nameOriginal,
+                year,
+                slogan,
+                posterUrl,
                 genres,
-                homepage,
-                backdrop_path,
-                production_companies,
-                production_countries,
-                overview,
-                videos,
-                credits,
-                vote_average,
-            } = await getMovieById(id);
+                coverUrl,
+                countries,
+                description,
+                ratingKinopoisk,
+            } = movieArr[0];
+            const staff = { actors: [], crew: [] };
+            movieArr[1].forEach(item => {
+                if (item.professionKey.toLowerCase() === 'actor') {
+                    staff.actors.push(item);
+                } else {
+                    staff.crew.push(item);
+                }
+            })
+            const { items } = movieArr[2];
+            const ownVideos = items
+                .filter(item => item.site === 'YOUTUBE' && item.name.toLowerCase().includes('трейлер'))
+                .map(item => ({
+                    title: item.name,
+                    videoId: item.url.split('v=')[1] || item.url.split('youtu.be/')[1]
+                }))
+
             const movie = {
                 id,
-                title,
-                original_title,
-                release_date,
-                tagline,
-                poster_path,
+                title: nameRu,
+                originalTitle: nameOriginal,
+                year,
+                slogan,
+                posterUrl,
                 genres,
-                homepage,
-                backdrop_path,
-                production_countries,
-                production_companies,
-                overview,
-                videos: videos.results.reverse(),
-                cast: credits.cast.slice(0, 12),
-                crew: credits.crew,
-                rating: vote_average,
+                coverUrl,
+                countries,
+                description,
+                actors: staff.actors.slice(0, 12),
+                crew: staff.crew,
+                rating: ratingKinopoisk,
+                video: ownVideos || []
             };
             commit('setMovie', movie);
         },
@@ -150,40 +153,41 @@ export default createStore({
         async fetchActorByID({ commit }, id) {
             commit('setActor', null);
             const {
-                name,
-                biography,
+                nameRu,
+                sex,
+                facts,
                 birthday,
-                deathday,
-                place_of_birth,
-                profile_path,
-                movie_credits,
+                death,
+                birthplace,
+                posterUrl,
+                films,
             } = await getActorById(id);
             const actor = {
                 id,
-                name,
-                biography: biography && biography.split('\n\n'),
+                nameRu,
+                sex,
+                facts,
                 birthday: new Date(birthday).toLocaleString('ru', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric',
                 }),
-                deathday: deathday
-                    ? new Date(deathday).toLocaleString('ru', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                      })
-                    : null,
-                place: place_of_birth,
-                poster: profile_path,
-                movies: movie_credits.cast
+                death: death ?
+                    new Date(death).toLocaleString('ru', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                    }) : null,
+                place: birthplace,
+                poster: posterUrl,
+                movies: films
                     .map(movie => ({
-                        id: movie.id,
-                        title: movie.title,
-                        released: new Date(movie.release_date).getFullYear(),
+                        id: movie.filmId,
+                        title: movie.nameRu,
+                        originalTitle: movie.nameEn,
+                        rating: movie.rating,
+                        role: movie.description,
                     }))
-                    .filter(movie => movie.released)
-                    .sort(objectSort('released')),
             };
             commit('setActor', actor);
         },
