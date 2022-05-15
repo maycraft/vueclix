@@ -96,6 +96,10 @@ body {
     background-attachment: fixed;
 }
 
+.t-center {
+    text-align: center;
+}
+
 .container {
     width: 100%;
     padding: 0 calc($gutter / 2);
@@ -120,4 +124,13 @@ body {
 @each $key,
 $utility in $utilities {
     @include generate-utility($utility);
+}
+
+%scale-card {
+    transform: scale(1.05);
+    z-index: 100;
+    padding: 0.9375rem;
+    margin-top: -0.9375rem;
+    margin-bottom: -0.9375rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

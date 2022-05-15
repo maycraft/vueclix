@@ -57,6 +57,9 @@ export default {
     margin-bottom: 0.7rem;
     text-align: center;
     cursor: pointer;
+    background: white;
+    position: relative;
+    transition: transform 0.35s ease;
 
     @include media-breakpoint-up(sm) {
         @include make-col(4);
@@ -102,6 +105,10 @@ export default {
     &__character {
         font-size: 13px;
         color: #9e9e9e;
+    }
+
+    &:hover {
+        @extend %scale-card;
     }
 }
 </style>

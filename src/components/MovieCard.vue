@@ -4,7 +4,7 @@
             <img v-if="hasPoster" :src="poster" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
         </div>
-        <h5 className="card__title ellipsis">{{ title }}</h5>
+            <h5 className="card__title ellipsis">{{ `${title} (${year})` }}</h5>
         <p className="card__genres ellipsis">{{ movieGenres }}</p>
         <span v-if="floatRating" class="card__rating">{{ floatRating }}</span>
     </div>
@@ -35,6 +35,10 @@ export default ({
             type: String,
             required: true,
         },
+        year: {
+            type: String,
+            require: true,
+        }
     },
     components: {
         CardLoader,
@@ -130,12 +134,7 @@ export default ({
         }
     }
     &:hover {
-        transform: scale(1.05);
-        z-index: 10;
-        padding: 0.9375rem;
-        margin-top: -0.9375rem;
-        margin-bottom: -0.9375rem;
-        box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+        @extend %scale-card;
     }
 
     &:hover &__rating {
