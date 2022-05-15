@@ -3,23 +3,23 @@
     <div class="actor" v-if="actor">
         <div class="actor__description">
             <div class="actor__poster">
-                <img :src="posterURL" :alt="actor.name" />
+                <img :src="actor.poster" :alt="actor.nameRu" />
             </div>
             <div class="actor__info">
-                <h1 class="actor__title">{{ actor.name }}</h1>
+                <h1 class="actor__title">{{ actor.nameRu }}</h1>
                 <p class="py-2"><b class="me-1">Дата рождения:</b> {{ actor.birthday }}</p>
-                <p v-if="actor.deathday" class="py-2">
-                    <b class="me-1">Дата смерти:</b> {{ actor.deathday }}
+                <p v-if="actor.death" class="py-2">
+                    <b class="me-1">Дата смерти:</b> {{ actor.death }}
                 </p>
                 <p class="py-2"><b class="me-1">Место рождения:</b> {{ actor.place }}</p>
                 <div
                     class="actor__biography"
-                    v-if="actor.biography"
+                    v-if="actor.facts"
                     ref="biography"
                     @click="onClick"
                 >
                     <h3>Биография:</h3>
-                    <p v-for="(part, i) in actor.biography" :key="i">
+                    <p v-for="(part, i) in actor.facts" :key="i">
                         {{ part }}
                     </p>
                 </div>
@@ -32,9 +32,9 @@
                     <router-link
                         class="movie-list__title"
                         :to="{ name: 'movie', params: { id: movie.id } }"
-                        >{{ movie.title }}</router-link
+                        >{{ movie.title || movie.originalTitle }}</router-link
                     >
-                    <span class="movie-list__line"></span><span>{{ movie.released }}</span>
+                    <span class="movie-list__line"></span><span>{{ movie.role }}</span>
                 </li>
             </ul>
         </div>
