@@ -9,9 +9,10 @@
                 :key="movie.filmId"
                 :id="movie.filmId"
                 :poster="movie.posterUrl"
-                :title="movie.nameRu"
+                :title="movie.nameRu ?? movie.nameEn"
                 :genres="movie.genres"
                 :rating="movie.rating"
+                :year="movie.year"
                 @click="$router.push(`/movie/${movie.filmId}`)"
             ></movie-card>
         </div>
