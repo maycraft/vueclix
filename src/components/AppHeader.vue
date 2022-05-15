@@ -29,6 +29,10 @@ export default {
                     title: 'Ожидаемые',
                     link: '/movies/await?page=1',
                 },
+                {
+                    title: 'Топ 100',
+                    link: '/movies/top100?page=1',
+                },
             ],
         };
     },

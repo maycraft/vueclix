@@ -3,7 +3,7 @@ import store from '@/store';
 import {
     API_PARAM_PAGE,
     API_URL_TOP_AWAIT_FILMS,
-    // API_URL_TOP_100_POPULAR_FILMS,
+    API_URL_TOP_100_POPULAR_FILMS,
     API_URL_CATEGORY_FILMS,
     API_URL_STAFF,
     API_URL_SEARCH_FILMS,
@@ -50,6 +50,10 @@ export const getAwaitMovies = async page => {
     return await getData(API_URL_TOP_AWAIT_FILMS + page);
     // return await getData(API_URL_FILMS_PRIMIERES + '2022' + API_PARAM_MONTH + getCurrentMonth());
 };
+
+export const getTop100Movies = async page => {
+    return await getData(API_URL_TOP_100_POPULAR_FILMS + page);
+}
 
 const getStaffByMovieId = async id => {
     return await getData(API_URL_STAFF + id)

@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { getAwaitMovies, getSearchMovies } from '@/api';
+import { getAwaitMovies, getTop100Movies, getSearchMovies } from '@/api';
 // import { getSearchMovies, } from '@/api';
 import { getMovieById, getActorById } from '../api';
 export default createStore({
@@ -64,9 +64,9 @@ export default createStore({
                 case 'await':
                     fetchMovies = getAwaitMovies;
                     break;
-                    // case 'upcoming':
-                    //     fetchMovies = getUpcomingMovies;
-                    //     break;
+                case 'top100':
+                    fetchMovies = getTop100Movies;
+                    break;
                 case 'search':
                     fetchMovies = getSearchMovies;
                     break;
