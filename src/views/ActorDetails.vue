@@ -45,7 +45,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { isNumeric } from '@/utils';
-import { POSTER_URL_SM } from '@/constants';
 // import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/VLoader.vue';
 
@@ -67,9 +66,6 @@ export default {
     },
     computed: {
         ...mapGetters(['actor', 'loading', 'error']),
-        posterURL() {
-            return POSTER_URL_SM + this.actor?.poster;
-        },
     },
 };
 </script>
