@@ -2,7 +2,7 @@
     <v-loader v-if="loading"></v-loader>
     <not-found v-if="error" :errMsg="error"></not-found>
     <main class="movie" v-if="item">
-        <h1 class="movie__title">{{ `${item.title} (${item.year})` }}</h1>
+        <h1 class="movie__title">{{ item.title || item.originalTitle }}<span v-if="item.year"> ({{ item.year }})</span></h1>
         <div class="movie__wrapper">
             <div class="movie__poster">
                 <div v-if="imageURL">
@@ -15,7 +15,7 @@
                     ></v-loader>
                 </div>
                 <img v-else src="@/assets/img/no_poster.jpg" :alt="item.title" />
-                <div class="movie__rating rating">
+                <div class="movie__rating rating" v-if="item.rating">
                     <div class="rating__common">
                         <p>
                             Рейтинг
@@ -42,72 +42,66 @@
                     <b>Страна: </b>
                     {{ countries }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Режессёр: </b>
                     {{ mapCrewItem(item.crew, 'DIRECTOR') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Продюсер: </b>
                     {{ mapCrewItem(item.crew, 'PRODUCER') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Сценарий: </b>
                     {{ mapCrewItem(item.crew, 'WRITER') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Оператор: </b>
                     {{ mapCrewItem(item.crew, 'OPERATOR') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Композитор: </b>
                     {{ mapCrewItem(item.crew, 'COMPOSER') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Художник: </b>
                     {{ mapCrewItem(item.crew, 'DESIGN') }}
                 </p>
-                <p v-if="item.crew" class="ellipsis">
+                <p v-if="item.crew.length" class="ellipsis">
                     <b>Монтаж: </b>
                     {{ mapCrewItem(item.crew, 'EDITOR') }}
                 </p> 
             </div>
         </div>
 
-        <div class="movie__overview">
+        <div v-if="item.description" class="movie__overview">
             <h3><b>Описание:</b></h3>
             <p>{{ item.description }}</p>
         </div>
         <div>
             <h3><b> Трейлер:</b></h3>
-            <template v-if="item.videos.length">
-                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
+            <template v-if="item.video.length">
+                <div class="trailer" :key="video.videoId" v-for="video in item.video">
                     <h4 class="trailer__title">{{ video.title }}</h4>
                     <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
             </template>
-            <p
-                style="
-                    {
-                        'text-align': 'center';
-                    }
-                "
-                v-else
-            >
-                Трейлер отсутствует
-            </p>
+            <p class="t-center" v-else>Трейлер отсутствует</p>
             <h3><b>В главных ролях:</b></h3>
-            <div class="movie__actors">
-                <actor-card
-                    :key="actor.staffId"
-                    :id="actor.staffId"
-                    :image-path="actor.posterUrl"
-                    :name="actor.nameRu"
-                    :character="actor.description"
-                    :gender="1"
-                    v-for="actor in item.actors"
-                    @detail="$router.push({ name: 'actor', params: { id: actor.id } })"
-                ></actor-card>
+            <div v-if="item.actors.length">
+                <div class="movie__actors">
+                    <actor-card
+                        :key="actor.staffId"
+                        :id="actor.staffId"
+                        :image-path="actor.posterUrl"
+                        :name="actor.nameRu"
+                        :character="actor.description"
+                        :gender="1"
+                        v-for="actor in item.actors"
+                        @detail="$router.push({ name: 'actor', params: { id: actor.staffId } })"
+                    ></actor-card>
+                </div>
             </div>
+            <p v-else class="t-center">Состав актёров не известен!</p>
         </div>
         <button class="backward" @click="$router.go(-1)">Назад</button>
     </main>
@@ -175,7 +169,7 @@ export default {
 <style lang="scss">
 .movie {
     background: $white;
-    padding: 2.5rem 1rem 0;
+    padding: 2.5rem 1rem 1rem;
     position: relative;
     margin: 0 -1rem;
     background-size: cover;
