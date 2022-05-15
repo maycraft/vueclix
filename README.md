@@ -9,9 +9,9 @@
 
 -   Скачать или клонировать проект
 -   Установить зависимости `npm install`
--   Запустить в dev режиме `npm start`
+-   Запустить в dev режиме `npm run serve`
 -   Запустить продакшн сборку проекта `npm run build`
 
 #### Посмотреть сайт:
 
-[https://maycraft.github.io/vueclix/](https://maycraft.github.io/vueclix/)
+[https://vueclix.vercel.app](https://vueclix.vercel.app)
