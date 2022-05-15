@@ -14,7 +14,7 @@ const KinoPoiskClient = axios.create({
     baseURL: 'https://kinopoiskapiunofficial.tech/api',
     timeout: 1500,
     headers: {
-        'X-API-KEY': process.env.VUE_APP_KINOPOISK_API_KEY,
+        'X-API-KEY': 'd88e3828-0227-47ab-98b1-22311eec5864',
         'Content-Type': 'application/json',
     },
 })
