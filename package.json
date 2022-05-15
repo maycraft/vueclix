@@ -1,41 +1,40 @@
 {
-  "name": "vueclix",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "predeploy": "npm run build",
-    "deploy": "cd dist && cp index.html 404.html && cd .. && gh-pages -d dist"
-  },
-  "dependencies": {
-    "axios": "^0.24.0",
-    "core-js": "^3.6.5",
-    "gh-pages": "^3.2.3",
-    "lodash": "^4.17.21",
-    "vue": "^3.0.0",
-    "vue-content-loader": "^2.0.1",
-    "vue-loader-v16": "^16.0.0-beta.5.4",
-    "vue-loading-overlay": "^5.0.1",
-    "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^5.0.4",
-    "@vue/cli-plugin-eslint": "^5.0.4",
-    "@vue/cli-plugin-router": "^5.0.4",
-    "@vue/cli-plugin-vuex": "^5.0.4",
-    "@vue/cli-service": "^5.0.4",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^7.0.0",
-    "prettier": "^2.2.1",
-    "sass": "^1.26.5",
-    "sass-loader": "^8.0.2"
-  },
-  "homepage": "https://maycraft.github.io/vueclix/"
+    "name": "vueclix",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build",
+        "lint": "vue-cli-service lint",
+        "predeploy": "npm run build",
+        "deploy": "cd dist && cp index.html 404.html && cd .. && gh-pages -d dist"
+    },
+    "dependencies": {
+        "axios": "^0.24.0",
+        "core-js": "^3.6.5",
+        "gh-pages": "^3.2.3",
+        "lodash": "^4.17.21",
+        "vue": "^3.0.0",
+        "vue-content-loader": "^2.0.1",
+        "vue-loader-v16": "^16.0.0-beta.5.4",
+        "vue-loading-overlay": "^5.0.1",
+        "vue-router": "^4.0.0-0",
+        "vuex": "^4.0.0-0"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "^5.0.4",
+        "@vue/cli-plugin-eslint": "^5.0.4",
+        "@vue/cli-plugin-router": "^5.0.4",
+        "@vue/cli-plugin-vuex": "^5.0.4",
+        "@vue/cli-service": "^5.0.4",
+        "@vue/compiler-sfc": "^3.0.0",
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "babel-eslint": "^10.1.0",
+        "eslint": "^7.32.0",
+        "eslint-plugin-prettier": "^3.3.1",
+        "eslint-plugin-vue": "^7.0.0",
+        "prettier": "^2.2.1",
+        "sass": "^1.26.5",
+        "sass-loader": "^8.0.2"
+    }
 }
