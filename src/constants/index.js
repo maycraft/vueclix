@@ -1,54 +1,34 @@
-export const API_KEY = '?api_key=' + process.env.VUE_APP_MOVIEDB_API_KEY;
+const API_VERSION_V1 = '/v1';
+const API_VERSION_V21 = '/v2.1';
+const API_VERSION_V22 = '/v2.2';
 
-const API_URL = 'https://api.themoviedb.org/3';
+export const API_PARAM_PAGE = '&page=';
+export const API_PARAM_FILM_ID = '?filmId=';
+export const API_PARAM_YEAR = '?year=';
+export const API_PARAM_MONTH = '&month=';
+const API_PARAM_IMAGES = '/images';
+export const API_PARAM_POSTER_IMAGES = API_PARAM_IMAGES + '?type=POSTER'
 
-const API_CATEGORY_MOVIE = '/movie';
+const API_CATEGORY_FILMS = '/films';
 
-const API_CATEGORY_GENRE = '/genre/movie/list';
+export const API_URL_CATEGORY_FILMS = API_VERSION_V22 + API_CATEGORY_FILMS;
 
-const API_CATEGORY_PERSON = '/person';
+const API_TOP_FILMS = API_VERSION_V22 + API_CATEGORY_FILMS + '/top';
 
-const API_TYPE_AUTH = '/authentication/guest_session/new';
+export const API_URL_TOP_250_BEST_FILMS = API_TOP_FILMS + '?type=TOP_250_BEST_FILMS' + API_PARAM_PAGE;
 
-const API_TYPE_MOVIE = '/movie';
+export const API_URL_TOP_100_POPULAR_FILMS = API_TOP_FILMS + '?type=TOP_100_POPULAR_FILMS' + API_PARAM_PAGE;
 
-const API_TYPE_UPCOMING = '/upcoming';
+export const API_URL_TOP_AWAIT_FILMS = API_TOP_FILMS + '?type=TOP_AWAIT_FILMS' + API_PARAM_PAGE;
 
-const API_TYPE_SEARCH = '/search';
+export const API_URL_SEARCH_FILMS = API_VERSION_V21 + API_CATEGORY_FILMS + '/search-by-keyword?keyword=';
 
-const API_TYPE_NOW_PLAYING = '/now_playing';
 
-// const API_REGION_RU = '&language=ru&region=ru'
-const API_REGION_RU = '&language=ru-RU&region=RU';
+export const API_URL_FILMS_PRIMIERES = API_VERSION_V22 + API_CATEGORY_FILMS + '/premieres' + API_PARAM_YEAR;
 
-const API_PAGE_PARAM = '&page=';
 
-const API_QUERY_PARAM = '&query=';
+export const API_URL_REVIEWS_FILMS = API_VERSION_V1 + '/reviews' + API_PARAM_FILM_ID;
 
-export const API_CONSTANT = API_KEY + API_REGION_RU;
+export const API_URL_STAFF = API_VERSION_V1 + '/staff' + API_PARAM_FILM_ID;
 
-export const API_URL_MOVIE = API_URL + API_CATEGORY_MOVIE;
-
-export const API_URL_UPCOMING = API_URL_MOVIE + API_TYPE_UPCOMING + API_CONSTANT + API_PAGE_PARAM;
-
-export const API_URL_NOW_PLAYING =
-    API_URL_MOVIE + API_TYPE_NOW_PLAYING + API_CONSTANT + API_PAGE_PARAM;
-
-export const API_URL_GENRE = API_URL + API_CATEGORY_GENRE + API_CONSTANT;
-
-export const API_URL_AUTH = API_URL + API_TYPE_AUTH + API_KEY;
-
-export const API_URL_SEARCH =
-    API_URL + API_TYPE_SEARCH + API_CATEGORY_MOVIE + API_CONSTANT + API_QUERY_PARAM;
-
-export const API_URL_RATING = API_URL + API_TYPE_MOVIE;
-
-export const API_URL_PERSON = API_URL + API_CATEGORY_PERSON;
-
-export const POSTER_URL_SM = 'https://image.tmdb.org/t/p/w300';
-
-export const POSTER_URL_MD = 'https://image.tmdb.org/t/p/w500';
-
-export const POSTER_URL_ORIGINAL = 'https://image.tmdb.org/t/p/original/';
-
-export const YOUTUBE_URL = 'https://www.youtube.com/embed/';
+export const API_URL_PERSON = API_VERSION_V1 + '/staff/';
