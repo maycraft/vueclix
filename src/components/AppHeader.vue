@@ -26,16 +26,8 @@ export default {
         return {
             menuItems: [
                 {
-                    title: 'Новинки',
-                    link: '/movies/now_playing?page=1',
-                },
-                {
                     title: 'Ожидаемые',
-                    link: '/movies/upcoming?page=1',
-                },
-                {
-                    title: 'Подбор',
-                    link: '/movies/discover?page=1',
+                    link: '/movies/await?page=1',
                 },
             ],
         };

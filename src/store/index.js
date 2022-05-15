@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
-// import { getNewMovies, getSearchMovies } from '@/api';
-import { getSearchMovies, } from '@/api';
+import { getAwaitMovies, getSearchMovies } from '@/api';
+// import { getSearchMovies, } from '@/api';
 import { getMovieById, getActorById } from '../api';
 export default createStore({
     state: {
@@ -61,12 +61,12 @@ export default createStore({
             let fetchMovies = '';
             commit('setMovies', null);
             switch (category) {
-                // case 'now_playing':
-                //     fetchMovies = getNewMovies;
-                //     break;
-                // case 'upcoming':
-                //     fetchMovies = getUpcomingMovies;
-                //     break;
+                case 'await':
+                    fetchMovies = getAwaitMovies;
+                    break;
+                    // case 'upcoming':
+                    //     fetchMovies = getUpcomingMovies;
+                    //     break;
                 case 'search':
                     fetchMovies = getSearchMovies;
                     break;
@@ -76,10 +76,9 @@ export default createStore({
                     const { films } = await getSearchMovies(query);
                     commit('setMovies', films);
                 } else {
-                    // const data = await fetchMovies(page);
-                    fetchMovies = require('@/data.json');
-                    const { pagesCount, films } = fetchMovies;
-                    // const { pagesCount, films } = await fetchMovies(page);
+                    // fetchMovies = require('@/data.json');
+                    // const { pagesCount, films } = fetchMovies;
+                    const { pagesCount, films } = await fetchMovies(page);
                     commit('setPage', page);
                     commit('setTotalPages', pagesCount);
                     commit('setMovies', films);

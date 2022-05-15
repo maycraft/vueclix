@@ -3,11 +3,10 @@ import Movies from '@/views/Movies.vue';
 import ItemDescription from '@/views/ItemDescription.vue';
 import NotFound from '@/views/NotFound.vue';
 import ActorDetails from '@/views/ActorDetails.vue';
-const routes = [
-    {
+const routes = [{
         path: '/',
         name: 'home',
-        redirect: { path: '/movies/now_playing', query: { page: 1 } },
+        redirect: { path: '/movies/await', query: { page: 1 } },
     },
     {
         path: '/movies/:category',
