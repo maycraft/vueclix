@@ -42,31 +42,31 @@
                     <b>Страна: </b>
                     {{ countries }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Режессёр: </b>
                     {{ mapCrewItem(item.crew, 'DIRECTOR') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Продюсер: </b>
                     {{ mapCrewItem(item.crew, 'PRODUCER') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Сценарий: </b>
                     {{ mapCrewItem(item.crew, 'WRITER') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Оператор: </b>
                     {{ mapCrewItem(item.crew, 'OPERATOR') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Композитор: </b>
                     {{ mapCrewItem(item.crew, 'COMPOSER') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Художник: </b>
                     {{ mapCrewItem(item.crew, 'DESIGN') }}
                 </p>
-                <p v-if="item.crew.length" class="ellipsis">
+                <p v-if="hasCrew" class="ellipsis">
                     <b>Монтаж: </b>
                     {{ mapCrewItem(item.crew, 'EDITOR') }}
                 </p> 
@@ -79,15 +79,15 @@
         </div>
         <div>
             <h3><b> Трейлер:</b></h3>
-            <template v-if="item.video.length">
-                <div class="trailer" :key="video.videoId" v-for="video in item.video">
+            <template v-if="hasVideos">
+                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
                     <h4 class="trailer__title">{{ video.title }}</h4>
                     <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
             </template>
             <p class="t-center" v-else>Трейлер отсутствует</p>
             <h3><b>В главных ролях:</b></h3>
-            <div v-if="item.actors.length">
+            <div v-if="hasActors">
                 <div class="movie__actors">
                     <actor-card
                         :key="actor.staffId"
@@ -150,9 +150,15 @@ export default {
         companies() {
             return this.item.production_companies.map(item => item.name).join(', ');
         },
-        sessionID() {
-            return JSON.parse(sessionStorage.getItem('sessionID')) || '';
+        hasCrew() {
+            return this.item.crew.length > 0;
         },
+        hasVideos() {
+            return this.item.videos.length > 0;
+        },
+        hasActors() {
+            return this.item.actors.length > 0;
+        }
         // backgroundImage() {
         //     return `background-image: url(${this.item.coverUrl})`
         // }
