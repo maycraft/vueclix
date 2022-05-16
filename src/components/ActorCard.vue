@@ -12,8 +12,8 @@
             </div>
         </figure>
         <div class="actor-card__wrapper">
-            <p class="actor-card__name ellipsis">{{ name }}</p>
-            <p class="actor-card__character ellipsis">{{ character }}</p>
+            <p :title="name" class="actor-card__name ellipsis">{{ name }}</p>
+            <p :title="character" class="actor-card__character ellipsis">{{ character }}</p>
         </div>
     </div>
 </template>
