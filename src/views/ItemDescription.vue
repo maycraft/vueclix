@@ -80,15 +80,15 @@
         </div>
         <div>
             <h3><b> Трейлер:</b></h3>
-            <template v-if="hasVideos">
-                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
+            <template v-if="item.video.length">
+                <div class="trailer" :key="video.videoId" v-for="video in item.video">
                     <h4 class="trailer__title">{{ video.title }}</h4>
                     <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
             </template>
             <p class="t-center" v-else>Трейлер отсутствует</p>
             <h3><b>В главных ролях:</b></h3>
-            <div v-if="hasActors">
+            <div v-if="item.actors.length">
                 <div class="movie__actors">
                     <actor-card
                         :key="actor.staffId"
@@ -151,12 +151,18 @@ export default {
         companies() {
             return this.item.production_companies.map(item => item.name).join(', ');
         },
+<<<<<<< HEAD
         hasVideos() {
             return this.item.videos.length > 0;
         },
         hasActors() {
             return this.item.actors.length > 0;
         }
+=======
+        sessionID() {
+            return JSON.parse(sessionStorage.getItem('sessionID')) || '';
+        },
+>>>>>>> parent of 66baff6 (Refactoring ItemDescription)
         // backgroundImage() {
         //     return `background-image: url(${this.item.coverUrl})`
         // }
