@@ -142,7 +142,7 @@ export default createStore({
                 actors: staff.actors.slice(0, 12),
                 crew: staff.crew,
                 rating: ratingKinopoisk,
-                video: ownVideos || []
+                videos: ownVideos || []
             };
             commit('setMovie', movie);
         },
