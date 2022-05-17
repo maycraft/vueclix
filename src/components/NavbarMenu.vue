@@ -197,6 +197,11 @@ export default {
             display: block;
             padding: 10px;
             position: relative;
+            border-right: 1px solid #e1e1e1;
+
+            &:hover {
+                color: #1a1a1a;
+            }
 
             &::after {
                 content: '';
@@ -262,6 +267,7 @@ export default {
             cursor: pointer;
             color: #212121;
             background-color: #eaeaea;
+            margin-left: -1px;
 
             @media screen and (max-width: 768px) {
                 display: none;
