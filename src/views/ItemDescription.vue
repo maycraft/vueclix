@@ -42,31 +42,32 @@
                     <b>Страна: </b>
                     {{ countries }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+
+                <p v-if="hasCrew('DIRECTOR')" class="ellipsis">
                     <b>Режессёр: </b>
                     {{ mapCrewItem(item.crew, 'DIRECTOR') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('PRODUCER')" class="ellipsis">
                     <b>Продюсер: </b>
                     {{ mapCrewItem(item.crew, 'PRODUCER') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('WRITER')" class="ellipsis">
                     <b>Сценарий: </b>
                     {{ mapCrewItem(item.crew, 'WRITER') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('OPERATOR')" class="ellipsis">
                     <b>Оператор: </b>
                     {{ mapCrewItem(item.crew, 'OPERATOR') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('COMPOSER')" class="ellipsis">
                     <b>Композитор: </b>
                     {{ mapCrewItem(item.crew, 'COMPOSER') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('DESIGN')" class="ellipsis">
                     <b>Художник: </b>
                     {{ mapCrewItem(item.crew, 'DESIGN') }}
                 </p>
-                <p v-if="hasCrew" class="ellipsis">
+                <p v-if="hasCrew('EDITOR')" class="ellipsis">
                     <b>Монтаж: </b>
                     {{ mapCrewItem(item.crew, 'EDITOR') }}
                 </p> 
@@ -150,9 +151,6 @@ export default {
         companies() {
             return this.item.production_companies.map(item => item.name).join(', ');
         },
-        hasCrew() {
-            return this.item.crew.length > 0;
-        },
         hasVideos() {
             return this.item.videos.length > 0;
         },
@@ -168,6 +166,9 @@ export default {
         mapCrewItem,
         loadImg() {
             this.showImage = true;
+        },
+        hasCrew(cast) {
+            return this.item.crew.some( person => person.professionKey === cast );
         },
     },
 };
