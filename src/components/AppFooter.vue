@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        maycraft &copy;
+        sunryser &copy;
         <span class="date"> {{ new Date().getFullYear() }}</span>
     </div>
 </template>
