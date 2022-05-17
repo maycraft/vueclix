@@ -42,11 +42,6 @@ export default {
             required: true,
         },
     },
-    // computed: {
-    //     imageURL() {
-    //         return POSTER_URL_SM + this.imagePath;
-    //     },
-    // },
 };
 </script>
 <style lang="scss">
@@ -54,7 +49,6 @@ export default {
     @include make-col(6);
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.7rem;
     text-align: center;
     cursor: pointer;
     background: white;
