@@ -8,13 +8,13 @@
         <nav class="header__menu">
             <navbar-menu
                 :items="menuItems"
-                :queryString="searchQuery"
-                @onQuery="onInput"
+                v-model="query"
             ></navbar-menu>
         </nav>
     </header>
 </template>
 <script>
+
 import NavbarMenu from '@/components/NavbarMenu.vue';
 import { mapActions, mapGetters } from 'vuex';
 export default {
@@ -34,20 +34,17 @@ export default {
                     link: '/movies/top100?page=1',
                 },
             ],
+            query: '',
         };
     },
     methods: {
-        ...mapActions(['getMovies', 'setSearchQuery']),
-        onInput(value) {
-            this.setSearchQuery(value);
-            if (value) {
-                this.$router.push(`/movies/search?q=${value}`);
-                this.getMovies({ category: 'search', query: value });
-            }
-        },
+        ...mapActions(['setSearchQuery']),
     },
     computed: {
         ...mapGetters(['searchQuery']),
+        // query() {
+        //     return this.searchQuery;
+        // },
     },
     watch: {
         $route(to, from) {

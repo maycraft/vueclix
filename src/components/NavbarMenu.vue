@@ -45,7 +45,7 @@
                         class="search__line"
                         :class="{ 'show-up': showSearch }"
                         placeholder="Поиск фильма..."
-                        :value="query"
+                        :value="modelValue"
                         @input="onInput"
                     />
                     <button class="btn__search" @click="toggleShow">
@@ -102,11 +102,12 @@ export default {
             default: () => [],
             required: true,
         },
-        queryString: {
+        modelValue: {
             type: String,
             default: '',
-        },
+        }
     },
+    emits: ['update:modelValue'],
     created() {
         window.addEventListener('resize', this.checkSize);
         this.checkSize();
@@ -122,7 +123,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(['setSearchQuery']),
+        ...mapActions(['getMovies','setSearchQuery']),
         checkSize() {
             this.showMenu = window.innerWidth >= 768;
         },
@@ -133,13 +134,14 @@ export default {
             } 
         },
         onInput: _.debounce(function (event) {
-            this.$emit('onQuery', event.target.value);
+            const value = event.target.value;
+            this.setSearchQuery(value);
+            this.$emit('update:modelValue', value);
+            if (value) {
+                this.$router.push(`/movies/search?q=${value}`);
+                this.getMovies({ category: 'search', query: value });
+            }
         }, 1000),
-    },
-    computed: {
-        query() {
-            return this.queryString;
-        },
     },
     watch: {
         $route(to, from) {
