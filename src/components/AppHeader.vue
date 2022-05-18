@@ -34,7 +34,7 @@ export default {
                     link: '/movies/top100?page=1',
                 },
             ],
-            query: '',
+            query: this.searchQuery,
         };
     },
     methods: {
@@ -42,9 +42,6 @@ export default {
     },
     computed: {
         ...mapGetters(['searchQuery']),
-        // query() {
-        //     return this.searchQuery;
-        // },
     },
     watch: {
         $route(to, from) {
