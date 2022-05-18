@@ -134,7 +134,7 @@ export default {
             } 
         },
         onInput: _.debounce(function (event) {
-            const value = event.target.value;
+            const value = event.target.value.trim();
             this.setSearchQuery(value);
             this.$emit('update:modelValue', value);
             if (value) {

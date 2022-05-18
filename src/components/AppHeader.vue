@@ -8,7 +8,7 @@
         <nav class="header__menu">
             <navbar-menu
                 :items="menuItems"
-                v-model="query"
+                v-model.trim="query"
             ></navbar-menu>
         </nav>
     </header>

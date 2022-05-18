@@ -125,8 +125,7 @@ export default createStore({
 
             if (!ownVideos.length) {
                 const title = nameRu || nameOriginal;
-                youtubeVideo = await getVideosFromYoutube(title)
-                console.log(youtubeVideo);
+                youtubeVideo = await getVideosFromYoutube(title, year)
             }
 
             const movie = {

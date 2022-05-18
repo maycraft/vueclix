@@ -77,10 +77,9 @@ export const getMovieById = async id => {
     return data;
 };
 
-export const getVideosFromYoutube = async movieTitle => {
+export const getVideosFromYoutube = async(movieTitle, releaseYear) => {
     try {
-        const videosAll = await YouTubeClient.get(`search?part=snippet&q=Трейлер ${movieTitle}&type=video&videoDuration=short&maxResults=1&key=AIzaSyAQdRphaSUuFoKjC7O_UF4IK5d1pcEw5QU`)
-        console.log('videosAll', videosAll);
+        const videosAll = await YouTubeClient.get(`search?part=snippet&q=Трейлер ${movieTitle} ${releaseYear}&type=video&videoDuration=short&maxResults=1&key=AIzaSyAQdRphaSUuFoKjC7O_UF4IK5d1pcEw5QU`)
         return videosAll.data.items.map(item => ({
             videoId: item.id.videoId,
             title: item.snippet.title,
