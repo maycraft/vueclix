@@ -1,7 +1,7 @@
 import { createStore } from 'vuex';
 import { getAwaitMovies, getTop100Movies, getSearchMovies } from '@/api';
 // import { getSearchMovies, } from '@/api';
-import { getMovieById, getActorById } from '../api';
+import { getMovieById, getActorById, getVideosFromYoutube } from '../api';
 export default createStore({
     state: {
         page: 1,
@@ -120,13 +120,14 @@ export default createStore({
                     staff.crew.push(item);
                 }
             })
-            const { items } = movieArr[2];
-            const ownVideos = items
-                .filter(item => item.site === 'YOUTUBE' && item.name.toLowerCase().includes('трейлер'))
-                .map(item => ({
-                    title: item.name,
-                    videoId: item.url.split('v=')[1] || item.url.split('youtu.be/')[1]
-                }))
+            const ownVideos = movieArr[2];
+            let youtubeVideo = '';
+
+            if (!ownVideos.length) {
+                const title = nameRu || nameOriginal;
+                youtubeVideo = await getVideosFromYoutube(title)
+                console.log(youtubeVideo);
+            }
 
             const movie = {
                 id,
@@ -142,7 +143,7 @@ export default createStore({
                 actors: staff.actors.slice(0, 12),
                 crew: staff.crew,
                 rating: ratingKinopoisk,
-                videos: ownVideos || []
+                videos: ownVideos.length ? ownVideos : youtubeVideo
             };
             commit('setMovie', movie);
         },

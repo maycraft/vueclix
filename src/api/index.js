@@ -67,14 +67,20 @@ export const getMovieById = async id => {
     const data = [];
     const mainData = await getData(`${API_URL_CATEGORY_FILMS}/${id}`);
     const staff = await getStaffByMovieId(id);
-    const trailers = await getTrailerByMovieId(id);
+    const raw = await getTrailerByMovieId(id);
+    const trailers = raw.items.filter(item => item.site === 'YOUTUBE' && item.name.toLowerCase().includes('трейлер'))
+        .map(item => ({
+            title: item.name,
+            videoId: item.url.slice(item.url.length - 11)
+        }))
     data.push(mainData, staff, trailers)
     return data;
 };
 
-export const getVideosByName = async movieTitle => {
+export const getVideosFromYoutube = async movieTitle => {
     try {
-        const videosAll = await YouTubeClient.get(`search?part=snippet&q=Трейлер ${movieTitle}&type=video&key=${process.env.VUE_APP_YOUTUBE_API_KEY}`)
+        const videosAll = await YouTubeClient.get(`search?part=snippet&q=Трейлер ${movieTitle}&type=video&videoDuration=short&maxResults=1&key=AIzaSyAQdRphaSUuFoKjC7O_UF4IK5d1pcEw5QU`)
+        console.log('videosAll', videosAll);
         return videosAll.data.items.map(item => ({
             videoId: item.id.videoId,
             title: item.snippet.title,

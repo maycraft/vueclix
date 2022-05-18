@@ -81,7 +81,7 @@
         <div>
             <h3><b> Трейлер:</b></h3>
             <template v-if="hasVideos">
-                <div class="trailer" :key="video.videoId" v-for="video in item.video">
+                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
                     <h4 class="trailer__title">{{ video.title }}</h4>
                     <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
