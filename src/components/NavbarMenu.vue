@@ -179,6 +179,7 @@ export default {
         height: auto;
         justify-content: space-between;
         transition: height 0.5s ease-in-out;
+        border: 0.5px dotted;
 
         @media screen and (max-width: 768px) {
             flex-direction: column;
