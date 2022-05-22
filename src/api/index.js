@@ -37,7 +37,12 @@ async function getData(url) {
     } catch (err) {
         console.log('error2', err.response);
         if (err.response) {
-            return err.response.data;
+            if (err.response.data.error) {
+                const data = err.response.data;
+                store.dispatch('setError', { 'text': data.error, 'status': data.status })
+            } else {
+                return err.response.data;
+            }
         } else {
             store.dispatch('setError', err.message);
         }

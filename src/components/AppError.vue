@@ -31,6 +31,7 @@
             <h1>Возникла ошибка</h1>
             <!-- <p class="error__text">{props.errorMessage}</p>
                 <p class="error__text">Веб страница по адресу "<span class="error__site">{props.url}</span>" не доступна</p> -->
+            <p class="error__status">{{ errStatus }}</p>
             <p class="error__text error__message">{{ errMsg }}</p>
         </div>
     </div>
@@ -43,6 +44,9 @@ export default {
             type: String,
             required: true,
         },
+        errStatus: {
+            type: String,
+        }
     },
 };
 </script>
@@ -51,12 +55,14 @@ export default {
     display: flex;
     justify-content: center;
     text-align: center;
+    padding: 2.5rem 0;
     &__wrapper {
         max-width: 400px;
         background-color: rgba(0, 0, 0, 0.1);
     }
     h1 {
         color: #5364a0;
+        line-height: 1;
     }
     &__image {
         width: 10rem;
@@ -67,7 +73,6 @@ export default {
         margin: 0 auto;
         max-width: 450px;
         font-weight: 300;
-        line-height: 2;
     }
 
     &__site {
@@ -76,6 +81,15 @@ export default {
 
     &__message {
         color: #dc3545;
+        line-height: 1;
+        font-size: 2rem;
+    }
+
+    &__status {
+        color: gold;
+        font-weight: bold;
+        font-size: 5rem;
+        line-height: 0.8;
     }
 }
 </style>
