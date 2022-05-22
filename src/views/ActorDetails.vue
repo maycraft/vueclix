@@ -1,5 +1,6 @@
 <template>
     <v-loader v-if="loading"></v-loader>
+    <div v-if="bgImg" :style="backgroundImage" class="movie__background"></div>
     <div class="actor" v-if="actor">
         <div class="actor__description">
             <div class="actor__poster">
@@ -65,7 +66,10 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(['actor', 'loading', 'error']),
+        ...mapGetters(['actor', 'loading', 'error', 'bgImg']),
+        backgroundImage() {
+            return `background-image: url(${this.bgImg})`;
+        }
     },
 };
 </script>
@@ -79,6 +83,7 @@ export default {
     margin-right: auto;
     padding-top: 2.5rem;
     padding-bottom: calc($gutter / 2);
+    background: rgba(255, 255, 255, 0.85);
 
     @include media-breakpoint-up(xl) {
         display: flex;

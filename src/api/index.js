@@ -7,7 +7,8 @@ import {
     API_URL_CATEGORY_FILMS,
     API_URL_STAFF,
     API_URL_SEARCH_FILMS,
-    API_URL_PERSON
+    API_URL_PERSON,
+    API_PARAM_SHOT_IMAGES
 } from '../constants';
 
 const KinoPoiskClient = axios.create({
@@ -68,6 +69,10 @@ const getTrailerByMovieId = async id => {
     return await getData(`${API_URL_CATEGORY_FILMS}/${id}/videos`);
 }
 
+const getShotImagesByMovieId = async id => {
+    return await getData(`${API_URL_CATEGORY_FILMS}/${id}${API_PARAM_SHOT_IMAGES}${API_PARAM_PAGE}1`);
+}
+
 export const getMovieById = async id => {
     const data = [];
     const mainData = await getData(`${API_URL_CATEGORY_FILMS}/${id}`);
@@ -78,7 +83,8 @@ export const getMovieById = async id => {
             title: item.name,
             videoId: item.url.slice(item.url.length - 11)
         }))
-    data.push(mainData, staff, trailers)
+    const shots = await getShotImagesByMovieId(id);
+    data.push(mainData, staff, trailers, shots);
     return data;
 };
 

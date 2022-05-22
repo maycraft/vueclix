@@ -12,6 +12,7 @@ export default createStore({
         error: null,
         searchQuery: '',
         actor: null,
+        bgImg: null,
     },
     getters: {
         movies: state => state.movies,
@@ -22,6 +23,7 @@ export default createStore({
         error: state => state.error,
         searchQuery: state => state.searchQuery,
         actor: state => state.actor,
+        bgImg: state => state.bgImg,
     },
     mutations: {
         setMovies(state, movies) {
@@ -48,10 +50,13 @@ export default createStore({
         setActor(state, actorObj) {
             state.actor = actorObj;
         },
+        setBgImg(state, image) {
+            state.bgImg = image;
+        }
     },
     actions: {
-        setError({ commit }, errMsg) {
-            commit('setError', errMsg);
+        setError({ commit }, errObj) {
+            commit('setError', errObj);
         },
         setLoading({ commit }, isLoaded) {
             commit('setLoading', isLoaded);
@@ -127,6 +132,7 @@ export default createStore({
                 const title = nameRu || nameOriginal;
                 youtubeVideo = await getVideosFromYoutube(title, year)
             }
+            const ShotsImgUrl = movieArr[3].items.map(item => item.imageUrl);
 
             const movie = {
                 id,
@@ -142,7 +148,8 @@ export default createStore({
                 actors: staff.actors.slice(0, 12),
                 crew: staff.crew,
                 rating: ratingKinopoisk,
-                videos: ownVideos.length ? ownVideos : youtubeVideo
+                videos: ownVideos.length ? [ownVideos[0]] : youtubeVideo,
+                images: ShotsImgUrl
             };
             commit('setMovie', movie);
         },
@@ -180,6 +187,7 @@ export default createStore({
                 place: birthplace,
                 poster: posterUrl,
                 movies: films
+                    .filter(movie => movie.professionKey === 'ACTOR')
                     .map(movie => ({
                         id: movie.filmId,
                         title: movie.nameRu,

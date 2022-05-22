@@ -1,6 +1,7 @@
 <template>
     <v-loader v-if="loading"></v-loader>
-    <not-found v-if="error" :errMsg="error"></not-found>
+    <app-error v-if="error" :errMsg="error.text" :errStatus="error.status"></app-error>
+    <div v-if="hasBackground" :style="backgroundImage" class="movie__background"></div>
     <main class="movie" v-if="item">
         <h1 class="movie__title">{{ item.title || item.originalTitle }}<span v-if="item.year"> ({{ item.year }})</span></h1>
         <div class="movie__wrapper">
@@ -79,51 +80,58 @@
             <p>{{ item.description }}</p>
         </div>
         <div>
-            <h3><b> Трейлер:</b></h3>
-            <template v-if="hasVideos">
-                <div class="trailer" :key="video.videoId" v-for="video in item.videos">
-                    <h4 class="trailer__title">{{ video.title }}</h4>
-                    <v-youtube :videoKey="video.videoId"></v-youtube>
-                </div>
-            </template>
-            <p class="t-center" v-else>Трейлер отсутствует</p>
-            <h3><b>В главных ролях:</b></h3>
-            <div v-if="hasActors">
-                <div class="movie__actors">
-                    <actor-card
-                        :key="actor.staffId"
-                        :id="actor.staffId"
-                        :image-path="actor.posterUrl"
-                        :name="actor.nameRu"
-                        :character="actor.description"
-                        :gender="1"
-                        v-for="actor in item.actors"
-                        @detail="$router.push({ name: 'actor', params: { id: actor.staffId } })"
-                    ></actor-card>
-                </div>
+            <div class="movie__trailer trailer">
+                <h3><b> Трейлер:</b></h3>
+                <template v-if="hasVideos">
+                    <div class="trailer__item" :key="video.videoId" v-for="video in item.videos">
+                        <h4 class="trailer__title">{{ video.title }}</h4>
+                        <v-youtube :videoKey="video.videoId"></v-youtube>
+                    </div>
+                </template>
+                <p class="t-center" v-else>Трейлер отсутствует</p>
             </div>
-            <p v-else class="t-center">Состав актёров не известен!</p>
+            <div class="movie__actors actors">
+                <h3 class="actors__title"><b>В главных ролях:</b></h3>
+                <div v-if="hasActors">
+                    <div class="actors__cast">
+                        <actor-card
+                            :key="actor.staffId"
+                            :id="actor.staffId"
+                            :image-path="actor.posterUrl"
+                            :name="actor.nameRu"
+                            :character="actor.description"
+                            :gender="1"
+                            v-for="actor in item.actors"
+                            @detail="$router.push({ name: 'actor', params: { id: actor.staffId } })"
+                        ></actor-card>
+                    </div>
+                </div>
+                <p v-else class="t-center">Состав актёров не известен!</p>
+            </div>
         </div>
         <button class="backward" @click="$router.go(-1)">Назад</button>
     </main>
 </template>
 <script>
 import ActorCard from '@/components/ActorCard.vue';
-import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/VLoader.vue';
 import VYoutube from '@/components/VYoutube.vue';
+import AppError from '@/components/AppError.vue';
 
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapMutations  } from 'vuex';
 import { isNumeric, getMovieGenres, getMovieCountries, mapCrewItem } from '@/utils';
 
 export default {
     created() {
-        this.fetchMovieByID(isNumeric(this.id));
+        const id = isNumeric(this.id);
+        if(!(this.item && this.item.id === id )){
+            this.fetchMovieByID(id);
+        }
     },
     components: {
         ActorCard,
         VLoader,
-        NotFound,
+        AppError,
         VYoutube,
     },
     name: 'ItemDescription',
@@ -156,13 +164,18 @@ export default {
         },
         hasActors() {
             return this.item.actors.length > 0;
+        },
+        hasBackground() {
+            return this.item?.images.length > 0;
+        },
+        backgroundImage() {
+            this.setBgImg(this.item.images[0]);
+            return `background-image: url(${this.item.images[0]})`;
         }
-        // backgroundImage() {
-        //     return `background-image: url(${this.item.coverUrl})`
-        // }
     },
     methods: {
         ...mapActions(['fetchMovieByID']),
+        ...mapMutations(['setBgImg']),
         mapCrewItem,
         loadImg() {
             this.showImage = true;
@@ -175,12 +188,10 @@ export default {
 </script>
 <style lang="scss">
 .movie {
-    background: $white;
+    background: rgba(255, 255, 255, 0.8);
     padding: 2.5rem 1rem 1rem;
-    position: relative;
     margin: 0 -1rem;
-    background-size: cover;
-    background-repeat: no-repeat;
+    position: relative;
     @include media-breakpoint-up(sm) {
         border-radius: 4px;
     }
@@ -259,7 +270,35 @@ export default {
         color: #2196f3;
     }
 
+    &__trailer {
+        padding: 1rem 0;
+    }
+
     &__actors {
+        background-color: $white;
+    }
+
+    &__background {
+        position: fixed;
+        top: -20px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+.actors {
+    &__title {
+        margin-left: -0.935rem;
+        margin-right: -0.935rem;
+        padding-left: 0.935rem;
+        padding-right: 0.935rem;
+        background-color: $white;
+    }
+    &__cast {
         @extend %row;
     }
 }

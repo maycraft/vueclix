@@ -7,7 +7,7 @@ export const API_PARAM_FILM_ID = '?filmId=';
 export const API_PARAM_YEAR = '?year=';
 export const API_PARAM_MONTH = '&month=';
 const API_PARAM_IMAGES = '/images';
-export const API_PARAM_POSTER_IMAGES = API_PARAM_IMAGES + '?type=POSTER'
+export const API_PARAM_SHOT_IMAGES = API_PARAM_IMAGES + '?type=STILL'
 
 const API_CATEGORY_FILMS = '/films';
 
