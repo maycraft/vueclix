@@ -17,7 +17,7 @@
             ></movie-card>
         </div>
         <app-pagination
-            v-if="category !== 'search'"
+            v-if="totalPages > 1"
             :current="currentPage"
             :total="totalPages"
             :pageCount="3"
