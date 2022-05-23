@@ -6,15 +6,11 @@
             </router-link>
         </div>
         <nav class="header__menu">
-            <navbar-menu
-                :items="menuItems"
-                v-model.trim="query"
-            ></navbar-menu>
+            <navbar-menu :items="menuItems" v-model.trim="query"></navbar-menu>
         </nav>
     </header>
 </template>
 <script>
-
 import NavbarMenu from '@/components/NavbarMenu.vue';
 import { mapActions, mapGetters } from 'vuex';
 export default {

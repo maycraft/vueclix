@@ -3,7 +3,9 @@
     <app-error v-if="error" :errMsg="error.text" :errStatus="error.status"></app-error>
     <div v-if="hasBackground" :style="backgroundImage" class="movie__background"></div>
     <main class="movie" v-if="item">
-        <h1 class="movie__title">{{ item.title || item.originalTitle }}<span v-if="item.year"> ({{ item.year }})</span></h1>
+        <h1 class="movie__title">
+            {{ item.title || item.originalTitle }}<span v-if="item.year"> ({{ item.year }})</span>
+        </h1>
         <div class="movie__wrapper">
             <div class="movie__poster">
                 <div v-if="imageURL">
@@ -71,7 +73,7 @@
                 <p v-if="hasCrew('EDITOR')" class="ellipsis">
                     <b>Монтаж: </b>
                     {{ mapCrewItem(item.crew, 'EDITOR') }}
-                </p> 
+                </p>
             </div>
         </div>
 
@@ -118,16 +120,17 @@ import VLoader from '@/components/VLoader.vue';
 import VYoutube from '@/components/VYoutube.vue';
 import AppError from '@/components/AppError.vue';
 
-import { mapGetters, mapActions, mapMutations  } from 'vuex';
+import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { isNumeric, getMovieGenres, getMovieCountries, mapCrewItem } from '@/utils';
 
 export default {
     created() {
         const id = isNumeric(this.id);
-        if(!(this.item && this.item.id === id )){
+        if (!(this.item && this.item.id === id)) {
             this.fetchMovieByID(id);
         }
     },
+
     components: {
         ActorCard,
         VLoader,
@@ -171,7 +174,7 @@ export default {
         backgroundImage() {
             this.setBgImg(this.item.images[0]);
             return `background-image: url(${this.item.images[0]})`;
-        }
+        },
     },
     methods: {
         ...mapActions(['fetchMovieByID']),
@@ -181,7 +184,7 @@ export default {
             this.showImage = true;
         },
         hasCrew(cast) {
-            return this.item.crew.some( person => person.professionKey === cast );
+            return this.item.crew.some(person => person.professionKey === cast);
         },
     },
 };

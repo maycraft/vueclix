@@ -46,7 +46,7 @@ export default {
         },
         errStatus: {
             type: String,
-        }
+        },
     },
 };
 </script>

@@ -4,7 +4,12 @@
             <img v-if="hasPoster" :src="poster" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
         </div>
-            <h5 :title="`${title} ${year !== 'null' ? `(${year})` : ''}`" className="card__title ellipsis">{{ title }}<span v-if="year !== 'null'">{{ ` (${year})` }}</span></h5>
+        <h5
+            :title="`${title} ${year !== 'null' ? `(${year})` : ''}`"
+            className="card__title ellipsis"
+        >
+            {{ title }}<span v-if="year !== 'null'">{{ ` (${year})` }}</span>
+        </h5>
         <p :title="movieGenres" className="card__genres ellipsis">{{ movieGenres }}</p>
         <span v-if="floatRating" class="card__rating">{{ floatRating }}</span>
     </div>
@@ -14,7 +19,7 @@
 import CardLoader from '@/components/CardLoader.vue';
 import { getMovieGenres } from '@/utils';
 
-export default ({
+export default {
     props: {
         id: {
             type: Number,
@@ -38,7 +43,7 @@ export default ({
         year: {
             type: String,
             require: true,
-        }
+        },
     },
     components: {
         CardLoader,
@@ -75,7 +80,7 @@ export default ({
             return getMovieGenres(this.genres);
         },
     },
-});
+};
 </script>
 <style lang="scss">
 .card {

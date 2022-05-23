@@ -13,12 +13,7 @@
                     <b class="me-1">Дата смерти:</b> {{ actor.death }}
                 </p>
                 <p class="py-2"><b class="me-1">Место рождения:</b> {{ actor.place }}</p>
-                <div
-                    class="actor__biography"
-                    v-if="actor.facts"
-                    ref="biography"
-                    @click="onClick"
-                >
+                <div class="actor__biography" v-if="actor.facts" ref="biography" @click="onClick">
                     <h3>Биография:</h3>
                     <p v-for="(part, i) in actor.facts" :key="i">
                         {{ part }}
@@ -46,14 +41,17 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { isNumeric } from '@/utils';
-// import NotFound from '@/components/NotFound.vue';
 import VLoader from '@/components/VLoader.vue';
 
 export default {
     components: { VLoader },
     created() {
-        this.fetchActorByID(isNumeric(this.id));
+        const id = isNumeric(this.id);
+        if (!(this.actor && this.actor.id === id)) {
+            this.fetchActorByID(id);
+        }
     },
+
     data() {
         return {
             id: this.$route.params.id,
@@ -69,7 +67,7 @@ export default {
         ...mapGetters(['actor', 'loading', 'error', 'bgImg']),
         backgroundImage() {
             return `background-image: url(${this.bgImg})`;
-        }
+        },
     },
 };
 </script>

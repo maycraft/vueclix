@@ -52,7 +52,7 @@ export default createStore({
         },
         setBgImg(state, image) {
             state.bgImg = image;
-        }
+        },
     },
     actions: {
         setError({ commit }, errObj) {
@@ -124,13 +124,13 @@ export default createStore({
                 } else {
                     staff.crew.push(item);
                 }
-            })
+            });
             const ownVideos = movieArr[2];
             let youtubeVideo = '';
 
             if (!ownVideos.length) {
                 const title = nameRu || nameOriginal;
-                youtubeVideo = await getVideosFromYoutube(title, year)
+                youtubeVideo = await getVideosFromYoutube(title, year);
             }
             const ShotsImgUrl = movieArr[3].items.map(item => item.imageUrl);
 
@@ -149,7 +149,7 @@ export default createStore({
                 crew: staff.crew,
                 rating: ratingKinopoisk,
                 videos: ownVideos.length ? [ownVideos[0]] : youtubeVideo,
-                images: ShotsImgUrl
+                images: ShotsImgUrl,
             };
             commit('setMovie', movie);
         },
@@ -183,7 +183,8 @@ export default createStore({
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
-                    }) : null,
+                    }) :
+                    null,
                 place: birthplace,
                 poster: posterUrl,
                 movies: films
@@ -194,7 +195,7 @@ export default createStore({
                         originalTitle: movie.nameEn,
                         rating: movie.rating,
                         role: movie.description,
-                    }))
+                    })),
             };
             commit('setActor', actor);
         },
