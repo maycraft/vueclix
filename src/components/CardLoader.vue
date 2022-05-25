@@ -1,15 +1,11 @@
 <template>
     <content-loader
-        :height="410"
-        :width="250"
+        viewBox="0 0 250 350"
         :speed="2"
         primaryColor="#cccccc"
         secondaryColor="#ecebeb"
-        class="card"
     >
-        <rect x="0" y="351" rx="0" ry="0" width="250" height="17" />
-        <rect x="0" y="373" rx="0" ry="0" width="250" height="13" />
-        <rect x="0" y="0" rx="0" ry="0" width="250" height="345" />
+        <rect x="4" y="0" rx="0" ry="0" width="297" height="508" />
     </content-loader>
 </template>
 <script>

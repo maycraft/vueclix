@@ -1,9 +1,10 @@
 <template>
-    <div className="card" @click="handleClick" v-if="isLoaded">
-        <div className="card__image">
+    <div className="card" @click="handleClick">
+        <image-item :source="poster" :title="title"></image-item>
+        <!-- <figure className="card__image">
             <img v-if="hasPoster" :src="poster" :alt="title" />
             <img v-else :src="require('@/assets/img/no_poster.jpg')" :alt="title" />
-        </div>
+        </figure> -->
         <h5
             :title="`${title} ${year !== 'null' ? `(${year})` : ''}`"
             className="card__title ellipsis"
@@ -13,11 +14,12 @@
         <p :title="movieGenres" className="card__genres ellipsis">{{ movieGenres }}</p>
         <span v-if="floatRating" class="card__rating">{{ floatRating }}</span>
     </div>
-    <card-loader v-else></card-loader>
+    <!-- <card-loader v-else></card-loader> -->
 </template>
 <script>
-import CardLoader from '@/components/CardLoader.vue';
+// import CardLoader from '@/components/CardLoader.vue';
 import { getMovieGenres } from '@/utils';
+import ImageItem from '@/components/ImageItem.vue';
 
 export default {
     props: {
@@ -37,7 +39,7 @@ export default {
             required: true,
         },
         rating: {
-            type: String,
+            type: [String, null],
             required: true,
         },
         year: {
@@ -46,18 +48,19 @@ export default {
         },
     },
     components: {
-        CardLoader,
+        ImageItem,
+        // CardLoader,
     },
     created() {
-        if (this.poster) {
-            const img = new Image();
-            img.src = this.poster;
-            img.onload = () => {
-                this.setIsLoaded(true);
-            };
-        } else {
-            this.setIsLoaded(true);
-        }
+        // if (this.poster) {
+        //     const img = new Image();
+        //     img.src = this.poster;
+        //     img.onload = () => {
+        //         this.setIsLoaded(true);
+        //     };
+        // } else {
+        //     this.setIsLoaded(true);
+        // }
     },
     data() {
         return {
@@ -97,21 +100,6 @@ export default {
     // @media screen and (max-width: 576px) {
     //     margin-bottom: 1rem;
     // }
-
-    &__image {
-        position: relative;
-        margin-bottom: 0.5rem;
-        overflow: hidden;
-        padding-bottom: 150%;
-        img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
 
     &__genres {
         font-size: 13px;
