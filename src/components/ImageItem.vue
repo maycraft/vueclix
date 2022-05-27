@@ -33,9 +33,6 @@ export default {
     &__wrapper {
         position: relative;
         margin-bottom: 0.5rem;
-        // display: flex;
-        // flex-direction: column;
-        // align-items: stretch;
         padding-top: 140%;
         height: 0;
         width: 100%;
@@ -66,12 +63,8 @@ export default {
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
         opacity: 0;
         visibility: hidden;
-        // transition: opacity 1s;
     }
 }
 </style>
