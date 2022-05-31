@@ -34,7 +34,7 @@ export default {
             required: true,
         },
         character: {
-            type: String,
+            type: [String, null],
             required: true,
         },
         gender: {
