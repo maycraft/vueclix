@@ -81,36 +81,40 @@
             <h3><b>Описание:</b></h3>
             <p>{{ item.description }}</p>
         </div>
-        <div>
-            <div class="movie__trailer trailer">
-                <h3><b> Трейлер:</b></h3>
-                <template v-if="hasVideos">
-                    <div class="trailer__item" :key="video.videoId" v-for="video in item.videos">
-                        <h4 class="trailer__title">{{ video.title }}</h4>
-                        <v-youtube :videoKey="video.videoId"></v-youtube>
-                    </div>
-                </template>
-                <p class="t-center" v-else>Трейлер отсутствует</p>
-            </div>
-            <div class="movie__actors actors">
-                <h3 class="actors__title"><b>В главных ролях:</b></h3>
-                <div v-if="hasActors">
-                    <div class="actors__cast">
-                        <actor-card
-                            :key="actor.staffId"
-                            :id="actor.staffId"
-                            :image-path="actor.posterUrl"
-                            :name="actor.nameRu"
-                            :character="actor.description"
-                            :gender="1"
-                            v-for="actor in item.actors"
-                            @detail="$router.push({ name: 'actor', params: { id: actor.staffId } })"
-                        ></actor-card>
-                    </div>
+        <!-- <div> -->
+        <div class="movie__trailer trailer">
+            <h3><b>Трейлер:</b></h3>
+            <template v-if="hasVideos">
+                <div class="trailer__item" :key="video.videoId" v-for="video in item.videos">
+                    <h4 class="trailer__title">{{ video.title }}</h4>
+                    <v-youtube :videoKey="video.videoId"></v-youtube>
                 </div>
-                <p v-else class="t-center">Состав актёров не известен!</p>
-            </div>
+            </template>
+            <p class="t-center" v-else>Трейлер отсутствует</p>
         </div>
+        <div v-if="hasImages" class="movie__still">
+            <h3><b>Кадры из фильма:</b></h3>
+            <v-slider :items="item.images" />
+        </div>
+        <div class="movie__actors actors">
+            <h3 class="actors__title"><b>В главных ролях:</b></h3>
+            <div v-if="hasActors">
+                <div class="actors__cast">
+                    <actor-card
+                        :key="actor.staffId"
+                        :id="actor.staffId"
+                        :image-path="actor.posterUrl"
+                        :name="actor.nameRu"
+                        :character="actor.description"
+                        :gender="1"
+                        v-for="actor in item.actors"
+                        @detail="$router.push({ name: 'actor', params: { id: actor.staffId } })"
+                    ></actor-card>
+                </div>
+            </div>
+            <p v-else class="t-center">Состав актёров не известен!</p>
+        </div>
+        <!-- </div> -->
         <button class="backward" @click="$router.go(-1)">Назад</button>
     </main>
 </template>
@@ -119,6 +123,7 @@ import ActorCard from '@/components/ActorCard.vue';
 import VLoader from '@/components/VLoader.vue';
 import VYoutube from '@/components/VYoutube.vue';
 import AppError from '@/components/AppError.vue';
+import VSlider from '@/components/VSlider.vue';
 
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { isNumeric, getMovieGenres, getMovieCountries, mapCrewItem } from '@/utils';
@@ -136,6 +141,7 @@ export default {
         VLoader,
         AppError,
         VYoutube,
+        VSlider,
     },
     name: 'ItemDescription',
     data() {
@@ -165,6 +171,9 @@ export default {
         hasVideos() {
             return this.item.videos.length > 0;
         },
+        hasImages() {
+            return this.item.images.length > 0;
+        },
         hasActors() {
             return this.item.actors.length > 0;
         },
@@ -185,6 +194,9 @@ export default {
         },
         hasCrew(cast) {
             return this.item.crew.some(person => person.professionKey === cast);
+        },
+        setThumbsSwiper(swiper) {
+            this.thumbsSwiper.value = swiper;
         },
     },
 };
@@ -291,6 +303,10 @@ export default {
         background-size: cover;
         background-repeat: no-repeat;
     }
+
+    &__still {
+        padding: 1rem 0;
+    }
 }
 
 .actors {
@@ -336,5 +352,23 @@ export default {
     &__link {
         color: #2e44e3;
     }
+}
+.relation {
+    margin: 0 auto;
+    position: relative;
+}
+
+.relation__ratio {
+    padding-top: 56.25%;
+    height: 0;
+}
+
+.relation__content {
+    position: absolute;
+    border: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 </style>
