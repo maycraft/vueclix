@@ -1,13 +1,16 @@
 <template>
-    <figure v-lazyload className="image__wrapper">
-        <card-loader class="image__loader"></card-loader>
+    <figure v-lazyload class="image__wrapper">
+        <skeleton-block class="image__loader" effect="wave" />
         <img class="image__item" :data-url="source" :alt="title" />
     </figure>
 </template>
 
 <script>
 import LazyLoadDirective from '@/utils/LazyLoadDirective.js';
-import CardLoader from '@/components/CardLoader.vue';
+import 'skeleton-elements/scss';
+
+import { SkeletonBlock } from 'skeleton-elements/vue';
+
 export default {
     props: {
         source: {
@@ -23,7 +26,7 @@ export default {
         lazyload: LazyLoadDirective,
     },
     components: {
-        CardLoader,
+        SkeletonBlock,
     },
 };
 </script>
@@ -32,7 +35,6 @@ export default {
 .image {
     &__wrapper {
         position: relative;
-        margin-bottom: 0.5rem;
         padding-top: 140%;
         height: 0;
         width: 100%;
