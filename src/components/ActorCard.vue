@@ -1,16 +1,6 @@
 <template>
     <div class="actor-card" :key="id" @click="$emit('detail')">
-        <figure class="actor-card__avatar">
-            <img :src="imagePath" :alt="name" v-if="imagePath" />
-            <div class="actor-card__avatar_slug" v-else>
-                <img
-                    v-if="gender === 1"
-                    src="@/assets/img/no_female_image.svg"
-                    alt="female avatar"
-                />
-                <img v-else src="@/assets/img/no_male_image.svg" alt="male avatar" />
-            </div>
-        </figure>
+        <image-item :source="imagePath" :title="name" class="actor-card__avatar" />
         <div class="actor-card__wrapper">
             <p :title="name" class="actor-card__name ellipsis">{{ name }}</p>
             <p :title="character" class="actor-card__character ellipsis">{{ character }}</p>
@@ -18,6 +8,8 @@
     </div>
 </template>
 <script>
+import ImageItem from '@/components/ImageItem.vue';
+
 export default {
     name: 'ActorCard',
     props: {
@@ -41,6 +33,9 @@ export default {
             type: Number,
             required: true,
         },
+    },
+    components: {
+        ImageItem,
     },
 };
 </script>
@@ -74,8 +69,6 @@ export default {
     &__avatar {
         margin-bottom: 5px;
         border-radius: 5px 5px 0 0;
-        overflow: hidden;
-        height: 100%;
 
         &_slug {
             background: #e6e6e6;
