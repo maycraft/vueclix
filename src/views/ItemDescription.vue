@@ -81,7 +81,6 @@
             <h3><b>Описание:</b></h3>
             <p>{{ item.description }}</p>
         </div>
-        <!-- <div> -->
         <div class="movie__trailer trailer">
             <h3><b>Трейлер:</b></h3>
             <template v-if="hasVideos">

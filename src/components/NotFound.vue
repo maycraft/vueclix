@@ -1,8 +1,8 @@
 <template>
-    <div className="not-found">
-        <p className="not-found__title">404</p>
-        <p className="not-found__info">Страница не найдена</p>
-        <p className="not-found__descr">{{ errMsg }}</p>
+    <div class="not-found">
+        <p class="not-found__title">404</p>
+        <p class="not-found__info">Страница не найдена</p>
+        <p class="not-found__descr">{{ errMsg }}</p>
     </div>
 </template>
 <script>

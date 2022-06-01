@@ -1,5 +1,5 @@
 <template>
-    <div className="pagination">
+    <div class="pagination">
         <ul>
             <li
                 class="pagination__btn"
