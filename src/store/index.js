@@ -78,12 +78,13 @@ export default createStore({
             }
             try {
                 if (category === 'search') {
-                    const { films } = await getSearchMovies(query);
+                    const { films } = await fetchMovies(query);
                     commit('setMovies', films);
                 } else {
-                    // fetchMovies = require('@/data.json');
-                    // const { pagesCount, films } = fetchMovies;
+                    // const data = require('@/static/data.json');
                     const { pagesCount, films } = await fetchMovies(page);
+                    // const data = await fetchMovies(page);
+                    // const { pagesCount, films } = require('@/static/data.json');
                     commit('setPage', page);
                     commit('setTotalPages', pagesCount);
                     commit('setMovies', films);

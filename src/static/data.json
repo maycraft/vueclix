@@ -1,0 +1,249 @@
+{
+    "pagesCount": 1,
+    "films": [{
+            "filmId": 1447137,
+            "nameRu": "Нет",
+            "nameEn": "Nope",
+            "year": "2022",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "ужасы"
+                },
+                {
+                    "genre": "фантастика"
+                }
+            ],
+            "rating": "99%",
+            "ratingVoteCount": 3380,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1447137.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1447137.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1009017,
+            "nameRu": "Чёрный Адам",
+            "nameEn": "Black Adam",
+            "year": "2022",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "фантастика"
+                },
+                {
+                    "genre": "фэнтези"
+                },
+                {
+                    "genre": "боевик"
+                }
+            ],
+            "rating": "97%",
+            "ratingVoteCount": 10450,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1009017.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1009017.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1013343,
+            "nameRu": "Вилли Вонка",
+            "nameEn": "Wonka",
+            "year": "2023",
+            "filmLength": null,
+            "countries": [{
+                    "country": "США"
+                },
+                {
+                    "country": "Канада"
+                },
+                {
+                    "country": "Ирландия"
+                }
+            ],
+            "genres": [{
+                    "genre": "мюзикл"
+                },
+                {
+                    "genre": "фэнтези"
+                },
+                {
+                    "genre": "комедия"
+                }
+            ],
+            "rating": "97%",
+            "ratingVoteCount": 3742,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1013343.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1013343.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1167855,
+            "nameRu": "Межсезонье",
+            "nameEn": null,
+            "year": "2021",
+            "filmLength": "1:48",
+            "countries": [{
+                "country": "Россия"
+            }],
+            "genres": [{
+                    "genre": "криминал"
+                },
+                {
+                    "genre": "приключения"
+                }
+            ],
+            "rating": "97%",
+            "ratingVoteCount": 2563,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1167855.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1167855.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1254077,
+            "nameRu": "Шазам! 2",
+            "nameEn": "Shazam! Fury of the Gods",
+            "year": "2022",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "фэнтези"
+                },
+                {
+                    "genre": "боевик"
+                },
+                {
+                    "genre": "триллер"
+                }
+            ],
+            "rating": "96%",
+            "ratingVoteCount": 6682,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1254077.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1254077.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1045585,
+            "nameRu": "Сердце Пармы",
+            "nameEn": null,
+            "year": "2021",
+            "filmLength": "1:50",
+            "countries": [{
+                "country": "Россия"
+            }],
+            "genres": [{
+                    "genre": "драма"
+                },
+                {
+                    "genre": "история"
+                }
+            ],
+            "rating": "95%",
+            "ratingVoteCount": 4406,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1045585.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1045585.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 840821,
+            "nameRu": "Кот в сапогах 2: Последнее желание",
+            "nameEn": "Puss in Boots: The Last Wish",
+            "year": "2022",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "мультфильм"
+                },
+                {
+                    "genre": "комедия"
+                },
+                {
+                    "genre": "приключения"
+                }
+            ],
+            "rating": "95%",
+            "ratingVoteCount": 6172,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/840821.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/840821.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1108401,
+            "nameRu": "МЫ",
+            "nameEn": null,
+            "year": "2021",
+            "filmLength": null,
+            "countries": [{
+                "country": "Россия"
+            }],
+            "genres": [{
+                    "genre": "фантастика"
+                },
+                {
+                    "genre": "драма"
+                }
+            ],
+            "rating": "93%",
+            "ratingVoteCount": 9617,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1108401.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1108401.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 1234997,
+            "nameRu": "Аквамен и потерянное царство",
+            "nameEn": "Aquaman and the Lost Kingdom",
+            "year": "2023",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "фантастика"
+                },
+                {
+                    "genre": "фэнтези"
+                },
+                {
+                    "genre": "боевик"
+                }
+            ],
+            "rating": "90%",
+            "ratingVoteCount": 12875,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/1234997.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/1234997.jpg",
+            "ratingChange": null
+        },
+        {
+            "filmId": 195483,
+            "nameRu": "Флэш",
+            "nameEn": "The Flash",
+            "year": "2023",
+            "filmLength": null,
+            "countries": [{
+                "country": "США"
+            }],
+            "genres": [{
+                    "genre": "фантастика"
+                },
+                {
+                    "genre": "фэнтези"
+                },
+                {
+                    "genre": "боевик"
+                }
+            ],
+            "rating": "88%",
+            "ratingVoteCount": 48943,
+            "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/195483.jpg",
+            "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/195483.jpg",
+            "ratingChange": null
+        }
+    ]
+}
